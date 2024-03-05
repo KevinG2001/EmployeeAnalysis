@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const app = express();
 
 const bodyParser = require("body-parser");
@@ -24,6 +25,9 @@ db.connect((err) => {
   console.log("Connected to database");
 });
 
+//Gets the secret key from the .env
+const secretKey = process.env.secretKey;
+
 // Login endpoint
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
@@ -31,16 +35,30 @@ app.post("/login", (req, res) => {
     "SELECT * FROM employees WHERE username = ?",
     [username],
     (err, results) => {
-      if (err) throw err;
+      if (err) {
+        console.error("Database query error:", err);
+        res
+          .status(500)
+          .json({ success: false, message: "Internal server error" });
+        return;
+      }
       if (results.length > 0) {
         const user = results[0];
         if (user.password === password) {
-          res.json({ success: true, message: "Login successful" });
+          // Generate JWT token
+          const token = jwt.sign(
+            { user_id: user.id, username: user.username },
+            secretKey,
+            { expiresIn: "1h" }
+          );
+          res.json({ success: true, message: "Login successful", token });
         } else {
-          res.json({ success: false, message: "Incorrect password" });
+          res
+            .status(401)
+            .json({ success: false, message: "Incorrect password" });
         }
       } else {
-        res.json({ success: false, message: "User not found" });
+        res.status(404).json({ success: false, message: "User not found" });
       }
     }
   );

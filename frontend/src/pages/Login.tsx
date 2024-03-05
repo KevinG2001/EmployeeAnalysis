@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Styles from "../styles/login/login.module.scss";
 
-function login() {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:5000/login", {
@@ -17,7 +17,10 @@ function login() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
+        // Store token in local storage
+        localStorage.setItem("token", data.token);
+        // Redirect to home page
+        window.location.href = "/home";
       } else {
         alert(data.message);
       }
@@ -41,7 +44,7 @@ function login() {
           </div>
           <div className={Styles.passwordBox}>
             <input
-              type="text"
+              type="password" // Change input type to password
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -58,4 +61,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
