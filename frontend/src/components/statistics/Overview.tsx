@@ -12,6 +12,8 @@ function Overview() {
       <div>
         <div>
           <button onClick={handleLogout}>Logout</button>
+          <div>Tasks completed</div>
+          <div>Fasted Task completed: </div>
         </div>
       </div>
     </>

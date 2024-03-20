@@ -58,11 +58,16 @@ app.post("/login", (req, res) => {
             user_id: user.id,
             username: user.username,
             isAdmin: isAdmin,
+            firstName: user.name,
           };
           // Generate JWT token with the payload and secret key, setting expiration to 1 hour
           const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
           // Send success response with token and message
-          res.json({ success: true, message: "Login successful", token });
+          res.json({
+            success: true,
+            message: "Login successful",
+            token,
+          });
         } else {
           // If provided password doesn't match the one in the database, return unauthorized response
           res
@@ -75,6 +80,60 @@ app.post("/login", (req, res) => {
       }
     }
   );
+});
+
+//Tasks endpoint
+//If the employeeID is assigned to a task we will add the taskID to a list and then
+//Show all the tasks we have that match that id
+app.post("/tasks", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+    const employeeID = decodedToken.user_id;
+
+    db.query(
+      "SELECT task_Id FROM task_employees WHERE id = ?",
+      [employeeID],
+      (err, results) => {
+        if (err) {
+          console.error("Database query error:", err);
+          res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+          return;
+        }
+
+        // Extract taskIds from the results
+        const taskIds = results.map((result) => result.task_Id);
+
+        // Now query the tasks table with the extracted taskIds
+        if (taskIds.length === 0) {
+          // If there are no taskIds, return an empty array of tasks
+          res.json({ success: true, tasks: [] });
+        } else {
+          db.query(
+            "SELECT * FROM tasks WHERE task_id IN (?)",
+            [taskIds],
+            (err, tasksResults) => {
+              if (err) {
+                console.error("Database query error:", err);
+                res
+                  .status(500)
+                  .json({ success: false, message: "Internal server error" });
+                return;
+              }
+              // Returns the tasks that the client is in
+              res.json({ success: true, tasks: tasksResults });
+            }
+          );
+        }
+      }
+    );
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
 });
 
 app.listen(5000, () => {
