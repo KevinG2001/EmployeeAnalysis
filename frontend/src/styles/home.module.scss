@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  width: 80%;
+  height: 100%;
+  margin-top: 5%;
+}
+
+.title {
+  font-size: 32px;
+  margin-left: 9%;
+  margin-right: 9%;
+}
+
+.boxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 40%;
+  height: 500px;
+  background-color: #ccc;
+  margin: 10px;
+}
