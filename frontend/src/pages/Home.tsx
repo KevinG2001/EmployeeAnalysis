@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Styles from "../styles/home.module.scss";
 import Efficency from "../components/statistics/Efficency";
 import Overview from "../components/statistics/Overview";
-import Tasks from "../components/Tasks";
+import TaskBox from "../components/TaskBox/TaskBox";
 
 function Home() {
   const [isAdmin, setIsAdmin] = useState(false); // State to track if user is admin
@@ -45,7 +45,7 @@ function Home() {
             </div>
             {/* Box 3 */}
             <div className={Styles.box}>
-              <Tasks />
+              <TaskBox />
             </div>
             {/* Box 4 & 5 if admin */}
             {/* Conditionally render additional components based on user's permissions */}

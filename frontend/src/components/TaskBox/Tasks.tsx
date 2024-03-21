@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Styles from "../styles/BoxCards/tasks.module.scss";
+import Styles from "../../styles/BoxCards/tasks.module.scss";
+import CreateTaskModal from "../TaskBox/CreateTaskModal";
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const refreshTasks = async () => {
     try {
@@ -45,6 +47,14 @@ function Tasks() {
     //Can change later on but for now this works
     return JSON.parse(atob(token.split(".")[1])); // Decoding token payload
   };
+
+  const openCreateTaskModal = () => {
+    setOpenModal(true);
+  };
+
+  const closeCreateTaskModal = () => {
+    setOpenModal(false);
+  };
   return (
     <>
       <div className={Styles.container}>
@@ -53,7 +63,7 @@ function Tasks() {
           <button onClick={refreshTasks}>Refresh Tasks</button>
           {isAdmin && (
             <>
-              <button>Create New Task</button>
+              <button onClick={openCreateTaskModal}>Create New Task</button>
             </>
           )}
         </div>
@@ -66,6 +76,7 @@ function Tasks() {
           ))}
         </div>
       </div>
+      <CreateTaskModal isOpen={openModal} closeModal={closeCreateTaskModal} />
     </>
   );
 }

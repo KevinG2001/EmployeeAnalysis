@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar {
+  width: 5%;
+  min-width: 75px;
+  background-color: lightblue;
+  height: 100%;
+}
+
+.contentPanel {
+  flex: 1;
+  background-color: lightcoral;
+}
