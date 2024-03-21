@@ -24,7 +24,6 @@ function Home() {
 
   // Function to decode token
   const decodeToken = (token: any) => {
-    // Implement token decoding logic here (e.g., using jwt-decode library)
     // For demonstration purposes, assuming token payload is accessible directly
     //Can change later on but for now this works
     return JSON.parse(atob(token.split(".")[1])); // Decoding token payload
@@ -52,8 +51,8 @@ function Home() {
             {/* Conditionally render additional components based on user's permissions */}
             {isAdmin && (
               <>
-                <div className={Styles.box}>Admin Box 1</div>
-                <div className={Styles.box}>Admin Box 2</div>
+                {/* <div className={Styles.box}>Admin Box 1</div> */}
+                {/* <div className={Styles.box}>Admin Box 2</div> */}
               </>
             )}
           </div>
