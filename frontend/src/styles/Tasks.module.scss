@@ -2,16 +2,23 @@
   display: flex;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .sidebar {
   width: 5%;
-  min-width: 75px;
+  min-width: 125px;
   background-color: lightblue;
   height: 100%;
+  text-align: center;
 }
 
 .contentPanel {
   flex: 1;
   background-color: lightcoral;
+}
+
+.taskBtn {
+  margin-top: 15%;
+  cursor: pointer;
 }
