@@ -4,6 +4,7 @@ function Overview() {
   const handleLogout = () => {
     // Remove the token from local storage
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     // Redirect the user to the login page or any other desired location
     window.location.href = "/";
   };
