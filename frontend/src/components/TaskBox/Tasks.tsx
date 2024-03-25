@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import CreateTaskModal from "../TaskBox/CreateTaskModal";
+import { useUser } from "../../util/userUtil";
+
 function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const user = useUser();
 
   const refreshTasks = async () => {
     try {
@@ -28,26 +30,6 @@ function Tasks() {
     }
   };
 
-  useEffect(() => {
-    // Function to fetch token from wherever it's stored (like local storage)
-    const token = localStorage.getItem("token"); // Assuming token is stored in local storage
-    if (token) {
-      // Decode token to access its payload
-      const decodedToken = decodeToken(token);
-      // Check if user is admin based on token payload
-      if (decodedToken.isAdmin) {
-        setIsAdmin(true);
-      }
-    }
-  }, []);
-
-  // Function to decode token
-  const decodeToken = (token: any) => {
-    // For demonstration purposes, assuming token payload is accessible directly
-    //Can change later on but for now this works
-    return JSON.parse(atob(token.split(".")[1])); // Decoding token payload
-  };
-
   const openCreateTaskModal = () => {
     setOpenModal(true);
   };
@@ -61,7 +43,7 @@ function Tasks() {
         <div className={Styles.title}></div>
         <div className={Styles.btnHolder}>
           <button onClick={refreshTasks}>Refresh Tasks</button>
-          {isAdmin && (
+          {user?.isAdmin && (
             <>
               <button onClick={openCreateTaskModal}>Create New Task</button>
             </>
