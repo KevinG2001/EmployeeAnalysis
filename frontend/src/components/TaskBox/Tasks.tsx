@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
-import CreateTaskModal from "../TaskBox/CreateTaskModal";
-import { useUser } from "../../util/userUtil";
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
-  const user = useUser();
 
   const refreshTasks = async () => {
     try {
@@ -30,24 +26,12 @@ function Tasks() {
     }
   };
 
-  const openCreateTaskModal = () => {
-    setOpenModal(true);
-  };
-
-  const closeCreateTaskModal = () => {
-    setOpenModal(false);
-  };
   return (
     <>
       <div className={Styles.container}>
         <div className={Styles.title}></div>
         <div className={Styles.btnHolder}>
           <button onClick={refreshTasks}>Refresh Tasks</button>
-          {user?.isAdmin && (
-            <>
-              <button onClick={openCreateTaskModal}>Create New Task</button>
-            </>
-          )}
         </div>
         <div className={Styles.taskHolder}>
           {tasks.map((task) => (
@@ -58,7 +42,6 @@ function Tasks() {
           ))}
         </div>
       </div>
-      <CreateTaskModal isOpen={openModal} closeModal={closeCreateTaskModal} />
     </>
   );
 }

@@ -145,7 +145,44 @@ app.post("/tasks", (req, res) => {
 });
 
 //Create Task endpoint
-app.post("/createTask", (req, res) => {});
+app.post("/createTask", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+
+    // Extract task data from request body
+    const { name, priority, difficulty, dueDate, description } = req.body;
+
+    // SQL query to insert task data into the database
+    const sql = `
+      INSERT INTO tasks (task_name, task_priority, task_difficulty, task_duedate, task_description)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    // Execute the SQL query
+    db.query(
+      sql,
+      [name, priority, difficulty, dueDate, description],
+      (error, results) => {
+        if (error) {
+          console.error("Error creating task:", error);
+          res.status(500).json({ message: "Failed to create task" });
+        } else {
+          console.log("Task created successfully");
+          res.status(201).json({
+            message: "Task created successfully",
+            taskId: results.insertId,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
