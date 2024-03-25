@@ -56,17 +56,25 @@ app.post("/login", (req, res) => {
           // Prepare payload for JWT token including user ID, username, and isAdmin flag
           const tokenPayload = {
             user_id: user.id,
-            username: user.username,
             isAdmin: isAdmin,
-            firstName: user.name,
           };
           // Generate JWT token with the payload and secret key, setting expiration to 1 hour
           const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
+
+          const userObj = {
+            id: user.id,
+            firstname: user.name,
+            surname: user.surname,
+            dob: user.dob,
+            email: user.email,
+            isAdmin: isAdmin,
+          };
           // Send success response with token and message
           res.json({
             success: true,
             message: "Login successful",
             token,
+            user: userObj,
           });
         } else {
           // If provided password doesn't match the one in the database, return unauthorized response
@@ -133,6 +141,45 @@ app.post("/tasks", (req, res) => {
   } catch (error) {
     console.error("JWT verification error:", error);
     res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+});
+
+//Create Task endpoint
+app.post("/createTask", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+
+    // Extract task data from request body
+    const { name, priority, difficulty, dueDate, description } = req.body;
+
+    // SQL query to insert task data into the database
+    const sql = `
+      INSERT INTO tasks (task_name, task_priority, task_difficulty, task_duedate, task_description)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    // Execute the SQL query
+    db.query(
+      sql,
+      [name, priority, difficulty, dueDate, description],
+      (error, results) => {
+        if (error) {
+          console.error("Error creating task:", error);
+          res.status(500).json({ message: "Failed to create task" });
+        } else {
+          console.log("Task created successfully");
+          res.status(201).json({
+            message: "Task created successfully",
+            taskId: results.insertId,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    res.status(401).json({ message: "Unauthorized" });
   }
 });
 

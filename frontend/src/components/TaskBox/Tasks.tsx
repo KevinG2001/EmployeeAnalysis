@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import Styles from "../../styles/BoxCards/tasks.module.scss";
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -7,6 +8,7 @@ function Tasks() {
     try {
       const token = localStorage.getItem("token");
 
+      //Fetchs the tasks from backend
       const response = await fetch("http://localhost:5000/tasks", {
         method: "POST",
         headers: {
@@ -26,19 +28,19 @@ function Tasks() {
 
   return (
     <>
-      <div>Tasks</div>
-      <div>
-        <button onClick={refreshTasks}>Refresh</button>{" "}
-      </div>
-      <div>
-        <ul>
+      <div className={Styles.container}>
+        <div className={Styles.title}></div>
+        <div className={Styles.btnHolder}>
+          <button onClick={refreshTasks}>Refresh Tasks</button>
+        </div>
+        <div className={Styles.taskHolder}>
           {tasks.map((task) => (
             <li key={task.task_id}>
-              <div>{task.task_name} </div>
+              <div>{task.task_name}</div>
               <div>{task.task_description}</div>
             </li>
           ))}
-        </ul>
+        </div>
       </div>
     </>
   );
