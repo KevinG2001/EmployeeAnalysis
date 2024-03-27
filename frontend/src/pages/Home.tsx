@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Styles from "../styles/home.module.scss";
-import Efficency from "../components/statistics/Efficency";
+import Statistics from "../components/statistics/StatisticsBox";
 import Overview from "../components/statistics/Overview";
 import TaskBox from "../components/TaskBox/TaskBox";
 import { useUser } from "../util/userUtil";
@@ -20,7 +20,7 @@ function Home() {
             </div>
             {/* Box 2  */}
             <div className={Styles.box}>
-              <Efficency />
+              <Statistics />
             </div>
             {/* Box 3 */}
             <div className={Styles.box}>

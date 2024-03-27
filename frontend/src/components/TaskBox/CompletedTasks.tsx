@@ -9,13 +9,16 @@ function CompletedTasks() {
       const token = localStorage.getItem("token");
 
       //Fetchs the tasks from backend
-      const response = await fetch("http://localhost:5000/completedTasks", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/tasks/completedTasks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch tasks");
       }

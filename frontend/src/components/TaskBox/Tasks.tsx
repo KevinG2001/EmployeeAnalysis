@@ -9,7 +9,7 @@ function Tasks() {
       const token = localStorage.getItem("token");
 
       //Fetchs the tasks from backend
-      const response = await fetch("http://localhost:5000/tasks", {
+      const response = await fetch("http://localhost:5000/api/tasks/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
