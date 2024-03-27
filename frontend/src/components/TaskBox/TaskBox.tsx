@@ -9,46 +9,35 @@ import AvailableTasks from "./AvailableTasks";
 function TaskBox() {
   const user = useUser();
   const [panelPointer, setPanelPointer] = useState("Assigned Tasks");
+
+  const panelComponents = {
+    "Completed Tasks": <CompletedTasks />,
+    "Available Tasks": <AvailableTasks />,
+    "Assigned Tasks": <Tasks />,
+    "Create New Task": user?.isAdmin && <CreateTask />,
+  };
+
   const handleClick = (e) => {
     const divName = e.target.textContent;
     setPanelPointer(divName);
   };
 
   return (
-    <>
-      <div className={Styles.container}>
-        {/* Buttons */}
-        <div className={Styles.sidebar}>
-          <div onClick={handleClick} className={Styles.taskBtn}>
-            Assigned Tasks
-          </div>
-          <div onClick={handleClick} className={Styles.taskBtn}>
-            Completed Tasks
-          </div>
-          <div onClick={handleClick} className={Styles.taskBtn}>
-            Available Tasks
-          </div>
-
-          {user?.isAdmin && (
-            <div onClick={handleClick} className={Styles.taskBtn}>
-              Create New Task
-            </div>
-          )}
-        </div>
-        {/* Content */}
-        <div className={Styles.contentPanel}>
-          {panelPointer === "Completed Tasks" ? (
-            <CompletedTasks />
-          ) : panelPointer === "Available Tasks" ? (
-            <AvailableTasks />
-          ) : panelPointer === "Assigned Tasks" ? (
-            <Tasks />
-          ) : (
-            panelPointer === "Create New Task" && <CreateTask />
-          )}
-        </div>
+    <div className={Styles.container}>
+      {/* Buttons */}
+      <div className={Styles.sidebar}>
+        {Object.keys(panelComponents).map(
+          (panel, index) =>
+            panelComponents[panel] && (
+              <div key={index} onClick={handleClick} className={Styles.taskBtn}>
+                {panel}
+              </div>
+            )
+        )}
       </div>
-    </>
+      {/* Content */}
+      <div className={Styles.contentPanel}>{panelComponents[panelPointer]}</div>
+    </div>
   );
 }
 
