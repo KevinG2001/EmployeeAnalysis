@@ -183,6 +183,60 @@ app.post("/createTask", (req, res) => {
   }
 });
 
+//Completed Tasks
+app.post("/completedTasks", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+    const employeeID = decodedToken.user_id;
+
+    //Query the database to search for the users assigned tasks
+    db.query(
+      "SELECT task_Id FROM task_employees WHERE id = ?",
+      [employeeID],
+      (err, results) => {
+        if (err) {
+          console.error("Database query error:", err);
+          res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+          return;
+        }
+
+        //maps over assigned tasks and puts the taskids in a variable
+        const taskIds = results.map((result) => result.task_Id);
+
+        // Now query the tasks table with the extracted taskIds
+        if (taskIds.length === 0) {
+          // If there are no taskIds, return an empty array of tasks
+          res.json({ success: true, tasks: [] });
+        } else {
+          //Gets all the tasks that the user was assigned that have a completed date (not null)
+          db.query(
+            "SELECT * FROM tasks WHERE task_id IN (?) AND task_completed_date IS NOT NULL",
+            [taskIds],
+            (err, tasksResults) => {
+              if (err) {
+                console.error("Database query error:", err);
+                res
+                  .status(500)
+                  .json({ success: false, message: "Internal server error" });
+                return;
+              }
+              //Returns the results as json
+              res.json({ success: true, tasks: tasksResults });
+            }
+          );
+        }
+      }
+    );
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
