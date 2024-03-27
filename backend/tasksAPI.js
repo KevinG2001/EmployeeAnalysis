@@ -6,11 +6,11 @@ const { generateToken, verifyToken } = require("./authentication");
 //Tasks endpoint
 //If the employeeID is assigned to a task we will add the taskID to a list and then
 //Show all the tasks we have that match that id
-router.post("/tasks", (req, res) => {
+router.post("/tasks", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
-    const decodedToken = jwt.verify(token, secretKey);
+    const decodedToken = await verifyToken(token);
     const employeeID = decodedToken.user_id;
 
     db.query(
@@ -58,11 +58,11 @@ router.post("/tasks", (req, res) => {
 });
 
 //Create Task endpoint
-router.post("/createTask", (req, res) => {
+router.post("/createTask", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
-    const decodedToken = jwt.verify(token, secretKey);
+    const decodedToken = await verifyToken(token);
 
     // Extract task data from request body
     const { name, priority, difficulty, dueDate, description } = req.body;
@@ -97,11 +97,11 @@ router.post("/createTask", (req, res) => {
 });
 
 //Completed Tasks
-router.post("/completedTasks", (req, res) => {
+router.post("/completedTasks", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
-    const decodedToken = jwt.verify(token, secretKey);
+    const decodedToken = await verifyToken(token);
     const employeeID = decodedToken.user_id;
 
     //Query the database to search for the users assigned tasks
@@ -151,11 +151,11 @@ router.post("/completedTasks", (req, res) => {
 });
 
 //Aviable Tasks
-router.post("/availabletasks", (req, res) => {
+router.post("/availabletasks", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
-    const decodedToken = jwt.verify(token, secretKey);
+    const decodedToken = await verifyToken(token);
     const employeeID = decodedToken.user_id;
 
     db.query(
