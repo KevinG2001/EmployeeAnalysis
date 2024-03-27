@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const db = require("./db");
-const { generateToken, verifyToken } = require("./auth");
+const db = require("./databaseConfig");
+const { generateToken, verifyToken } = require("./authentication");
 
 //Tasks endpoint
 //If the employeeID is assigned to a task we will add the taskID to a list and then
 //Show all the tasks we have that match that id
-app.post("/tasks", (req, res) => {
+router.post("/tasks", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
@@ -58,7 +58,7 @@ app.post("/tasks", (req, res) => {
 });
 
 //Create Task endpoint
-app.post("/createTask", (req, res) => {
+router.post("/createTask", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
@@ -97,7 +97,7 @@ app.post("/createTask", (req, res) => {
 });
 
 //Completed Tasks
-app.post("/completedTasks", (req, res) => {
+router.post("/completedTasks", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
@@ -151,7 +151,7 @@ app.post("/completedTasks", (req, res) => {
 });
 
 //Aviable Tasks
-app.post("/availabletasks", (req, res) => {
+router.post("/availabletasks", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {

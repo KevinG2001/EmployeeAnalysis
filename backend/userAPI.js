@@ -1,10 +1,10 @@
 const express = require("express");
-const router = express.Router();
-const db = require("./db");
-const { generateToken, verifyToken } = require("./auth");
+const router = express.Router(); // Create a router instance
+const db = require("./databaseConfig");
+const jwt = require("jsonwebtoken");
 
-app.post("/login", (req, res) => {
-  const { username, password } = req.body; // Get username and pass from body
+router.post("/login", (req, res) => {
+  const { username, password } = req.body; // Get username and password from request body
   // Search the database to find the user with the provided username
   db.query(
     "SELECT * FROM employees WHERE username = ?",
@@ -33,7 +33,9 @@ app.post("/login", (req, res) => {
             isAdmin: isAdmin,
           };
           // Generate JWT token with the payload and secret key, setting expiration to 1 hour
-          const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
+          const token = jwt.sign(tokenPayload, process.env.secretKey, {
+            expiresIn: "1h",
+          });
 
           const userObj = {
             id: user.id,
@@ -43,7 +45,7 @@ app.post("/login", (req, res) => {
             email: user.email,
             isAdmin: isAdmin,
           };
-          // Send success response with token and message
+          // Send success response with token and user object
           res.json({
             success: true,
             message: "Login successful",
@@ -64,4 +66,4 @@ app.post("/login", (req, res) => {
   );
 });
 
-module.exports = router;
+module.exports = router; // Export the router
