@@ -115,13 +115,13 @@ app.post("/tasks", (req, res) => {
         // Extract taskIds from the results
         const taskIds = results.map((result) => result.task_Id);
 
-        // Now query the tasks table with the extracted taskIds
+        // Now query the tasks table with the extracted taskIds, filtering for tasks where task_completed_date is null
         if (taskIds.length === 0) {
           // If there are no taskIds, return an empty array of tasks
           res.json({ success: true, tasks: [] });
         } else {
           db.query(
-            "SELECT * FROM tasks WHERE task_id IN (?)",
+            "SELECT * FROM tasks WHERE task_id IN (?) AND task_completed_date IS NULL",
             [taskIds],
             (err, tasksResults) => {
               if (err) {
@@ -131,7 +131,7 @@ app.post("/tasks", (req, res) => {
                   .json({ success: false, message: "Internal server error" });
                 return;
               }
-              // Returns the tasks that the client is in
+              // Returns the tasks that the client is in and are not completed
               res.json({ success: true, tasks: tasksResults });
             }
           );
@@ -180,6 +180,60 @@ app.post("/createTask", (req, res) => {
   } catch (error) {
     console.error("Error verifying token:", error);
     res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
+//Completed Tasks
+app.post("/completedTasks", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+    const employeeID = decodedToken.user_id;
+
+    //Query the database to search for the users assigned tasks
+    db.query(
+      "SELECT task_Id FROM task_employees WHERE id = ?",
+      [employeeID],
+      (err, results) => {
+        if (err) {
+          console.error("Database query error:", err);
+          res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+          return;
+        }
+
+        //maps over assigned tasks and puts the taskids in a variable
+        const taskIds = results.map((result) => result.task_Id);
+
+        // Now query the tasks table with the extracted taskIds
+        if (taskIds.length === 0) {
+          // If there are no taskIds, return an empty array of tasks
+          res.json({ success: true, tasks: [] });
+        } else {
+          //Gets all the tasks that the user was assigned that have a completed date (not null)
+          db.query(
+            "SELECT * FROM tasks WHERE task_id IN (?) AND task_completed_date IS NOT NULL",
+            [taskIds],
+            (err, tasksResults) => {
+              if (err) {
+                console.error("Database query error:", err);
+                res
+                  .status(500)
+                  .json({ success: false, message: "Internal server error" });
+                return;
+              }
+              //Returns the results as json
+              res.json({ success: true, tasks: tasksResults });
+            }
+          );
+        }
+      }
+    );
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
   }
 });
 
