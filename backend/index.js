@@ -237,6 +237,67 @@ app.post("/completedTasks", (req, res) => {
   }
 });
 
+//Aviable Tasks
+app.post("/availabletasks", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+    const employeeID = decodedToken.user_id;
+
+    db.query(
+      "SELECT task_Id FROM task_employees WHERE id = ?",
+      [employeeID],
+      (err, results) => {
+        if (err) {
+          console.error("Database query error:", err);
+          res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+          return;
+        }
+
+        // Extract taskIds from the results
+        const taskIds = results.map((result) => result.task_Id);
+
+        // Now query the tasks table with the extracted taskIds, filtering for tasks that are not assigned to the user
+        if (taskIds.length === 0) {
+          // If there are no taskIds, return all tasks
+          db.query("SELECT * FROM tasks", (err, allTasks) => {
+            if (err) {
+              console.error("Database query error:", err);
+              res
+                .status(500)
+                .json({ success: false, message: "Internal server error" });
+              return;
+            }
+            res.json({ success: true, tasks: allTasks });
+          });
+        } else {
+          db.query(
+            "SELECT * FROM tasks WHERE task_id NOT IN (?)",
+            [taskIds],
+            (err, tasksResults) => {
+              if (err) {
+                console.error("Database query error:", err);
+                res
+                  .status(500)
+                  .json({ success: false, message: "Internal server error" });
+                return;
+              }
+              // Returns the tasks that are not assigned to the user
+              res.json({ success: true, tasks: tasksResults });
+            }
+          );
+        }
+      }
+    );
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });

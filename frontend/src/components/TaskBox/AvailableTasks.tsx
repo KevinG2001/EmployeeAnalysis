@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Styles from "../../styles/Tasks.module.scss";
+import React, { useState } from "react";
+import Styles from "../../styles/BoxCards/tasks.module.scss";
 
-function CompletedTasks() {
+function AvailableTasks() {
   const [tasks, setTasks] = useState([]);
 
   const refreshTasks = async () => {
@@ -9,7 +9,7 @@ function CompletedTasks() {
       const token = localStorage.getItem("token");
 
       //Fetchs the tasks from backend
-      const response = await fetch("http://localhost:5000/completedTasks", {
+      const response = await fetch("http://localhost:5000/availabletasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,4 +45,4 @@ function CompletedTasks() {
   );
 }
 
-export default CompletedTasks;
+export default AvailableTasks;

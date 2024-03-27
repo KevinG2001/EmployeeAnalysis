@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Tasks from "./Tasks";
 import Styles from "../../styles/Tasks.module.scss";
 import { useUser } from "../../util/userUtil";
 import CreateTask from "./CreateTask";
 import CompletedTasks from "./CompletedTasks";
+import AvailableTasks from "./AvailableTasks";
 
 function TaskBox() {
   const user = useUser();
@@ -39,7 +40,7 @@ function TaskBox() {
           {panelPointer === "Completed Tasks" ? (
             <CompletedTasks />
           ) : panelPointer === "Available Tasks" ? (
-            <div>Available Tasks</div>
+            <AvailableTasks />
           ) : panelPointer === "Assigned Tasks" ? (
             <Tasks />
           ) : (
