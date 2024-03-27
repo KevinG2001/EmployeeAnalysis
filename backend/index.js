@@ -1,5 +1,4 @@
 const express = require("express");
-const mysql = require("mysql");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const app = express();
@@ -8,22 +7,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 app.use(cors()); // Enable CORS for all routes
-require("dotenv").config(); // Load environment variables from .env file
-//Database Info
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-});
-//Database connection
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to database:", err);
-    return;
-  }
-  console.log("Connected to database");
-});
 
 //Gets the secret key from the .env
 const secretKey = process.env.secretKey;
