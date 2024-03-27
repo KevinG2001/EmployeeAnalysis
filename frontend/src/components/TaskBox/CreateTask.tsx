@@ -18,7 +18,7 @@ function CreateTask() {
       description: description,
     };
 
-    fetch("http://localhost:5000/createTask", {
+    fetch("http://localhost:5000/api/tasks/createTask", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

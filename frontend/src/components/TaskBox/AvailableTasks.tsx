@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 
-function Tasks() {
+function AvailableTasks() {
   const [tasks, setTasks] = useState([]);
 
   const refreshTasks = async () => {
@@ -9,13 +9,16 @@ function Tasks() {
       const token = localStorage.getItem("token");
 
       //Fetchs the tasks from backend
-      const response = await fetch("http://localhost:5000/api/tasks/tasks", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/tasks/availabletasks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch tasks");
       }
@@ -25,7 +28,6 @@ function Tasks() {
       console.error("Error refreshing tasks:", error);
     }
   };
-
   return (
     <>
       <div className={Styles.container}>
@@ -46,4 +48,4 @@ function Tasks() {
   );
 }
 
-export default Tasks;
+export default AvailableTasks;
