@@ -21,7 +21,6 @@ function CompletedTasks() {
       }
       const data = await response.json();
       setTasks(data.tasks);
-      console.log("Button clicked", tasks);
     } catch (error) {
       console.error("Error refreshing tasks:", error);
     }

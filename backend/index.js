@@ -115,13 +115,13 @@ app.post("/tasks", (req, res) => {
         // Extract taskIds from the results
         const taskIds = results.map((result) => result.task_Id);
 
-        // Now query the tasks table with the extracted taskIds
+        // Now query the tasks table with the extracted taskIds, filtering for tasks where task_completed_date is null
         if (taskIds.length === 0) {
           // If there are no taskIds, return an empty array of tasks
           res.json({ success: true, tasks: [] });
         } else {
           db.query(
-            "SELECT * FROM tasks WHERE task_id IN (?)",
+            "SELECT * FROM tasks WHERE task_id IN (?) AND task_completed_date IS NULL",
             [taskIds],
             (err, tasksResults) => {
               if (err) {
@@ -131,7 +131,7 @@ app.post("/tasks", (req, res) => {
                   .json({ success: false, message: "Internal server error" });
                 return;
               }
-              // Returns the tasks that the client is in
+              // Returns the tasks that the client is in and are not completed
               res.json({ success: true, tasks: tasksResults });
             }
           );
