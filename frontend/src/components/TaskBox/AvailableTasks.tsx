@@ -43,7 +43,6 @@ function AvailableTasks() {
   return (
     <>
       <div className={Styles.container}>
-        <div className={Styles.title}></div>
         <table className={listStyles.listContainer}>
           <tr>
             <th>Task Name</th>
