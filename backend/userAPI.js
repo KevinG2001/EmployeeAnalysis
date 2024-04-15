@@ -7,7 +7,7 @@ router.post("/login", (req, res) => {
   const { username, password } = req.body; // Get username and password from request body
   // Search the database to find the user with the provided username
   db.query(
-    "SELECT * FROM employees WHERE username = ?",
+    "SELECT * FROM employees WHERE employee_username = ?",
     [username],
     (err, results) => {
       if (err) {
@@ -20,10 +20,10 @@ router.post("/login", (req, res) => {
       }
       if (results.length > 0) {
         const user = results[0]; // Get the first user
-        if (user.password === password) {
+        if (user.employee_password === password) {
           // Check if the provided password matches the password in the database
           let isAdmin = false; // Initialize isAdmin variable to false
-          if (user.manager === 1) {
+          if (user.employee_manager === 1) {
             // Check if the user is a manager (admin)
             isAdmin = true; // Set isAdmin to true if user is a manager
           }
