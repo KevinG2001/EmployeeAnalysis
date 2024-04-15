@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
+import { Task } from "../../types/taskType";
 
 function Tasks() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const refreshTasks = async () => {
     try {
@@ -26,13 +27,19 @@ function Tasks() {
     }
   };
 
+  //Timer to refresh tasks every 5 minutes and automatically refresh it when mounted
+  useEffect(() => {
+    refreshTasks();
+
+    const interval = setInterval(refreshTasks, 5 * 60 * 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <div className={Styles.container}>
         <div className={Styles.title}></div>
-        <div className={Styles.btnHolder}>
-          <button onClick={refreshTasks}>Refresh Tasks</button>
-        </div>
         <div className={Styles.taskHolder}>
           {tasks.map((task) => (
             <li key={task.task_id}>
