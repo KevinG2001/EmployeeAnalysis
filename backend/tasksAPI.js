@@ -14,7 +14,7 @@ router.post("/tasks", async (req, res) => {
     const employeeID = decodedToken.user_id;
 
     db.query(
-      "SELECT task_Id FROM task_employees WHERE id = ?",
+      "SELECT task_id FROM assignedtasks WHERE employee_id = ?",
       [employeeID],
       (err, results) => {
         if (err) {
@@ -26,7 +26,7 @@ router.post("/tasks", async (req, res) => {
         }
 
         // Extract taskIds from the results
-        const taskIds = results.map((result) => result.task_Id);
+        const taskIds = results.map((result) => result.task_id);
 
         // Now query the tasks table with the extracted taskIds, filtering for tasks where task_completed_date is null
         if (taskIds.length === 0) {
@@ -106,7 +106,7 @@ router.post("/completedTasks", async (req, res) => {
 
     //Query the database to search for the users assigned tasks
     db.query(
-      "SELECT task_Id FROM task_employees WHERE id = ?",
+      "SELECT task_id FROM assignedtasks WHERE employee_id = ?",
       [employeeID],
       (err, results) => {
         if (err) {
@@ -118,7 +118,7 @@ router.post("/completedTasks", async (req, res) => {
         }
 
         //maps over assigned tasks and puts the taskids in a variable
-        const taskIds = results.map((result) => result.task_Id);
+        const taskIds = results.map((result) => result.task_id);
 
         // Now query the tasks table with the extracted taskIds
         if (taskIds.length === 0) {
@@ -159,7 +159,7 @@ router.post("/availabletasks", async (req, res) => {
     const employeeID = decodedToken.user_id;
 
     db.query(
-      "SELECT task_Id FROM task_employees WHERE id = ?",
+      "SELECT task_id FROM assignedtasks WHERE employee_id = ?",
       [employeeID],
       (err, results) => {
         if (err) {
@@ -171,7 +171,7 @@ router.post("/availabletasks", async (req, res) => {
         }
 
         // Extract taskIds from the results
-        const taskIds = results.map((result) => result.task_Id);
+        const taskIds = results.map((result) => result.task_id);
 
         // Now query the tasks table with the extracted taskIds, filtering for tasks that are not assigned to the user
         if (taskIds.length === 0) {
