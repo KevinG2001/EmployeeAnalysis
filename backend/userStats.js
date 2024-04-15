@@ -15,7 +15,7 @@ router.post("/efficiency", async (req, res) => {
     // Check the database to get completed tasks assigned to the user
     //t is tasks table and te is task_employees table
     db.query(
-      "SELECT t.*, te.task_assigned_date FROM tasks t INNER JOIN task_employees te ON t.task_id = te.task_id WHERE te.id = ? AND t.task_completed_date IS NOT NULL",
+      "SELECT t.*, at.task_assignedDate FROM tasks t INNER JOIN assignedtasks at ON t.task_id = at.task_id WHERE at.employee_id = ? AND t.task_completed_date IS NOT NULL",
       [employeeID],
       async (err, tasksResults) => {
         if (err) {
@@ -30,7 +30,7 @@ router.post("/efficiency", async (req, res) => {
           const efficiencies = await Promise.all(
             tasksResults.map(async (task) => {
               // Perform efficiency calculation here using task data
-              const start = new Date(task.task_assigned_date);
+              const start = new Date(task.task_assignedDate);
               const end = new Date(task.task_completed_date);
               const daysTaken = Math.ceil(
                 (end - start) / (1000 * 60 * 60 * 24)
