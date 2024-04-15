@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Styles from "../../styles/Tasks.module.scss";
 import Productivity from "./Productivity";
+import Efficiency from "./Efficiency";
 
 function Efficency() {
-  const [panelPointer, setPanelPointer] = useState("Productivity");
+  const [panelPointer, setPanelPointer] = useState("Efficiency");
 
-  const panelComponents: string = {
+  const panelComponents: any = {
+    Efficiency: <Efficiency />,
     Productivity: <Productivity />,
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     const divName = e.target.textContent;
     setPanelPointer(divName);
   };

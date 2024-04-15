@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
+import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
+import { Task } from "../../types/taskType";
 
 function Tasks() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const refreshTasks = async () => {
     try {
@@ -26,21 +28,35 @@ function Tasks() {
     }
   };
 
+  //Timer to refresh tasks every 5 minutes and automatically refresh it when mounted
+  useEffect(() => {
+    refreshTasks();
+
+    const interval = setInterval(refreshTasks, 5 * 60 * 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <div className={Styles.container}>
-        <div className={Styles.title}></div>
-        <div className={Styles.btnHolder}>
-          <button onClick={refreshTasks}>Refresh Tasks</button>
-        </div>
-        <div className={Styles.taskHolder}>
+        <table className={listStyles.listContainer}>
+          <tr>
+            <th>Task Name</th>
+            <th>Task Description</th>
+            <th>Difficulty</th>
+            <th>Priority</th>
+          </tr>
+
           {tasks.map((task) => (
-            <li key={task.task_id}>
-              <div>{task.task_name}</div>
-              <div>{task.task_description}</div>
-            </li>
+            <tr key={task.task_id}>
+              <td>{task.task_name}</td>
+              <td>{task.task_description}</td>
+              <td>{task.task_difficulty}</td>
+              <td>{task.task_priority}</td>
+            </tr>
           ))}
-        </div>
+        </table>
       </div>
     </>
   );

@@ -12,9 +12,7 @@ function Overview() {
     <>
       <div>
         <div>
-          <button onClick={handleLogout}>Logout</button>
-          <div>Tasks completed</div>
-          <div>Fasted Task completed: </div>
+          <div>Logout modal now on profile pic</div>
         </div>
       </div>
     </>
