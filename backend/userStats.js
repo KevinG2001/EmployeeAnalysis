@@ -37,20 +37,36 @@ router.post("/efficiency", async (req, res) => {
               ); // Convert milliseconds to days
 
               // Calculate efficiency using the formula
-              return (
-                (task.task_difficulty / task.task_priority / daysTaken) * 100
-              );
+              const efficiency = (
+                (task.task_difficulty / task.task_priority / daysTaken) *
+                100
+              ).toFixed(2);
+
+              // Return efficiency for the current task
+              return {
+                task_id: task.task_id,
+                task_name: task.task_name,
+                efficiency: efficiency,
+              };
             })
           );
 
           // Calculate overall efficiency
-          const sum = efficiencies.reduce((acc, curr) => acc + curr, 0);
           const overallEfficiency = efficiencies.length
-            ? (sum / efficiencies.length).toFixed(2) // Round to 2 decimal places
+            ? (
+                efficiencies.reduce(
+                  (acc, curr) => acc + parseFloat(curr.efficiency),
+                  0
+                ) / efficiencies.length
+              ).toFixed(2)
             : 0;
 
           // Return the overall efficiency as JSON response
-          return res.json({ success: true, efficiency: overallEfficiency });
+          return res.json({
+            success: true,
+            overallEfficiency: overallEfficiency,
+            efficiencies: efficiencies,
+          });
         } catch (error) {
           console.error("Error calculating efficiency:", error);
           return res.status(500).json({
