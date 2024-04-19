@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import { Task } from "../../types/taskType";
 
 function Tasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const refreshTasks = async () => {
     try {
@@ -23,6 +24,7 @@ function Tasks() {
       }
       const data = await response.json();
       setTasks(data.tasks);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error refreshing tasks:", error);
     }
@@ -32,33 +34,40 @@ function Tasks() {
   useEffect(() => {
     refreshTasks();
 
-    const interval = setInterval(refreshTasks, 5 * 60 * 100);
+    const interval = setInterval(refreshTasks, 5 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <>
-      <div className={Styles.container}>
+    <div className={Styles.container}>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : tasks.length === 0 ? (
+        <p>No tasks assigned to you</p>
+      ) : (
         <table className={listStyles.listContainer}>
-          <tr>
-            <th>Task Name</th>
-            <th>Task Description</th>
-            <th>Difficulty</th>
-            <th>Priority</th>
-          </tr>
-
-          {tasks.map((task) => (
-            <tr key={task.task_id}>
-              <td>{task.task_name}</td>
-              <td>{task.task_description}</td>
-              <td>{task.task_difficulty}</td>
-              <td>{task.task_priority}</td>
+          <thead>
+            <tr>
+              <th>Task Name</th>
+              <th>Task Description</th>
+              <th>Difficulty</th>
+              <th>Priority</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {tasks.map((task) => (
+              <tr key={task.task_id}>
+                <td>{task.task_name}</td>
+                <td>{task.task_description}</td>
+                <td>{task.task_difficulty}</td>
+                <td>{task.task_priority}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
 

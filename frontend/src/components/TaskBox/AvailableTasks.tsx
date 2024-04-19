@@ -5,6 +5,7 @@ import { Task } from "../../types/taskType";
 
 function AvailableTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const refreshTasks = async () => {
     try {
@@ -26,6 +27,7 @@ function AvailableTasks() {
       }
       const data = await response.json();
       setTasks(data.tasks);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error refreshing tasks:", error);
     }
@@ -43,23 +45,29 @@ function AvailableTasks() {
   return (
     <>
       <div className={Styles.container}>
-        <table className={listStyles.listContainer}>
-          <tr>
-            <th>Task Name</th>
-            <th>Task Description</th>
-            <th>Difficulty</th>
-            <th>Priority</th>
-          </tr>
-
-          {tasks.map((task) => (
-            <tr key={task.task_id}>
-              <td>{task.task_name}</td>
-              <td>{task.task_description}</td>
-              <td>{task.task_difficulty}</td>
-              <td>{task.task_priority}</td>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : tasks.length === 0 ? (
+          <p>No tasks available</p>
+        ) : (
+          <table className={listStyles.listContainer}>
+            <tr>
+              <th>Task Name</th>
+              <th>Task Description</th>
+              <th>Difficulty</th>
+              <th>Priority</th>
             </tr>
-          ))}
-        </table>
+
+            {tasks.map((task) => (
+              <tr key={task.task_id}>
+                <td>{task.task_name}</td>
+                <td>{task.task_description}</td>
+                <td>{task.task_difficulty}</td>
+                <td>{task.task_priority}</td>
+              </tr>
+            ))}
+          </table>
+        )}
       </div>
     </>
   );
