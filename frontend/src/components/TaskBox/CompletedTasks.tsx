@@ -51,21 +51,24 @@ function CompletedTasks() {
           <p>You have not completed any tasks</p>
         ) : (
           <table className={listStyles.listContainer}>
-            <tr>
-              <th>Task Name</th>
-              <th>Task Description</th>
-              <th>Difficulty</th>
-              <th>Priority</th>
-            </tr>
-
-            {tasks.map((task) => (
-              <tr key={task.task_id}>
-                <td>{task.task_name}</td>
-                <td>{task.task_description}</td>
-                <td>{task.task_difficulty}</td>
-                <td>{task.task_priority}</td>
+            <thead>
+              <tr>
+                <th>Task Name</th>
+                <th>Task Description</th>
+                <th>Difficulty</th>
+                <th>Priority</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {tasks.map((task) => (
+                <tr key={task.task_id}>
+                  <td>{task.task_name}</td>
+                  <td>{task.task_description}</td>
+                  <td>{task.task_difficulty}</td>
+                  <td>{task.task_priority}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         )}
       </div>
