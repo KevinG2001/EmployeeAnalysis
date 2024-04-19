@@ -39,10 +39,10 @@ router.post("/login", (req, res) => {
 
           const userObj = {
             id: user.employee_id,
-            firstname: user.name,
-            surname: user.surname,
-            dob: user.dob,
-            email: user.email,
+            firstname: user.employee_firstname,
+            surname: user.employee_surname,
+            dob: user.employee_dob,
+            email: user.employee_email,
             isAdmin: isAdmin,
           };
           // Send success response with token and user object
