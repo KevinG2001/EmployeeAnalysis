@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Styles from "../../styles/Tasks.module.scss";
+import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import { Task } from "../../types/taskType";
 
