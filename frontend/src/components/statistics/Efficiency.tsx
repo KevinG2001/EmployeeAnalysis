@@ -1,4 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
+import {
+  Chart as ChartJS,
+  LinearScale,
+  CategoryScale,
+  BarElement,
+  PointElement,
+  LineElement,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  LinearScale,
+  CategoryScale,
+  BarElement,
+  PointElement,
+  LineElement
+);
 
 function Efficiency() {
   const [efficiency, setEfficiency] = useState(null);
@@ -29,6 +46,17 @@ function Efficiency() {
 
   return (
     <>
+      <Line
+        data={{
+          labels: ["A", "B", "C"],
+          datasets: [
+            {
+              label: "Efficiency",
+              data: [200, 400, 600],
+            },
+          ],
+        }}
+      />
       <div>User Efficiency</div>
       <button onClick={getEfficiency}>Get stat</button>
       <div>{efficiency}</div>

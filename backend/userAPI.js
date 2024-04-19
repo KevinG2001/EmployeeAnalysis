@@ -29,7 +29,7 @@ router.post("/login", (req, res) => {
           }
           // Prepare payload for JWT token including user ID, username, and isAdmin flag
           const tokenPayload = {
-            user_id: user.id,
+            user_id: user.employee_id,
             isAdmin: isAdmin,
           };
           // Generate JWT token with the payload and secret key, setting expiration to 1 hour
@@ -38,7 +38,7 @@ router.post("/login", (req, res) => {
           });
 
           const userObj = {
-            id: user.id,
+            id: user.employee_id,
             firstname: user.name,
             surname: user.surname,
             dob: user.dob,
