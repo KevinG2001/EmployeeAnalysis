@@ -3,6 +3,7 @@ import Styles from "../styles/home.module.scss";
 import Statistics from "../components/statistics/StatisticsBox";
 import Overview from "../components/statistics/Overview";
 import TaskBox from "../components/TaskBox/TaskBox";
+import EmployeeBox from "../components/EmployeeBox/EmployeeList"
 import { useUser } from "../util/userUtil";
 import profilePic from "../assets/profilePicPlaceholder.svg";
 import LogoutModal from "../components/modals/LogoutModal";
@@ -61,7 +62,9 @@ function Home() {
             {/* Conditionally render additional components based on user's permissions */}
             {user?.isAdmin && (
               <>
-                {/* <div className={Styles.box}>Admin Box 1</div> */}
+                <div className={Styles.box}>
+                  <EmployeeBox />
+                </div>
                 {/* <div className={Styles.box}>Admin Box 2</div> */}
               </>
             )}
