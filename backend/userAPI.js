@@ -43,6 +43,8 @@ router.post("/login", (req, res) => {
             surname: user.employee_surname,
             dob: user.employee_dob,
             email: user.employee_email,
+            username: user.employee_username,
+            passwordLen: user.employee_password.length,
             isAdmin: isAdmin,
           };
           // Send success response with token and user object
