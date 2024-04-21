@@ -107,7 +107,7 @@ function Settings() {
             <div className={Style.inputTitle}>Password: </div>
 
             <input
-              type="text"
+              type="password"
               placeholder={Array.from(
                 { length: user?.passwordLen ?? 0 },
                 () => "*"

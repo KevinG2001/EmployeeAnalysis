@@ -75,25 +75,46 @@ router.post("/saveAccountSettings", async (req, res) => {
   try {
     const decodedToken = await verifyToken(token);
     const employee_id = decodedToken.user_id;
+
     const { newFirstname, newSurname, newUsername, newPassword } = req.body;
-    db.query(
-      "UPDATE employees SET employee_firstname = ?, employee_surname = ?, employee_username = ?, employee_password = ? WHERE employee_id = ?",
-      [newFirstname, newSurname, newUsername, newPassword, employee_id],
-      (err, results) => {
-        if (err) {
-          console.log("Database query error", err);
-          res
-            .status(500)
-            .json({ success: false, message: "Internal server error" });
-          return;
-        }
-        // If the update is successful, you can send a success response
-        res.status(200).json({
-          success: true,
-          message: "Account settings updated successfully",
-        });
+
+    let query = "UPDATE employees SET ";
+    const params = [];
+    if (newFirstname) {
+      query += "employee_firstname = ?, ";
+      params.push(newFirstname);
+    }
+    if (newSurname) {
+      query += "employee_surname = ?, ";
+      params.push(newSurname);
+    }
+    if (newUsername) {
+      query += "employee_username = ?, ";
+      params.push(newUsername);
+    }
+    if (newPassword) {
+      query += "employee_password = ?, ";
+      params.push(newPassword);
+    }
+    //Remove last , and space
+    query = query.slice(0, -2);
+    query += " WHERE employee_id = ?";
+    params.push(employee_id);
+    console.log(query, employee_id);
+
+    db.query(query, params, (err, results) => {
+      if (err) {
+        console.log("Database query error", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Internal server error" });
       }
-    );
+      // If the update is successful, you can send a success response
+      res.status(200).json({
+        success: true,
+        message: "Account settings updated successfully",
+      });
+    });
   } catch (error) {
     console.error("JWT verification error: ", error);
     res.status(401).json({ success: false, message: "Unauthorized" });
