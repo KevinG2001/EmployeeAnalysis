@@ -4,5 +4,7 @@ export interface User {
   surname: string;
   dob: string;
   email: string;
+  username: string;
+  passwordLen: number;
   isAdmin: boolean;
 }

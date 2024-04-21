@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import { Employee } from "../../types/employeeType";
@@ -34,7 +34,7 @@ function EmployeeDetails() {
   };
 
   // Timer to refresh tasks every 5 minutes and automatically refresh it when mounted
-    useEffect(() => {
+  useEffect(() => {
     refreshEmployees();
 
     const interval = setInterval(refreshEmployees, 5 * 60 * 100);
@@ -53,7 +53,6 @@ function EmployeeDetails() {
           <table className={listStyles.listContainer}>
             <thead>
               <tr>
-                <th></th>
                 <th>Employee First Name</th>
                 <th>Employee Surname</th>
                 <th>Employee Email</th>

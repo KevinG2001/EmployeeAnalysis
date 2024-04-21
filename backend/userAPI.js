@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router(); // Create a router instance
 const db = require("./databaseConfig");
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("./authentication");
 
 router.post("/login", (req, res) => {
   const { username, password } = req.body; // Get username and password from request body
@@ -39,10 +40,12 @@ router.post("/login", (req, res) => {
 
           const userObj = {
             id: user.employee_id,
-            firstname: user.name,
-            surname: user.surname,
-            dob: user.dob,
-            email: user.email,
+            firstname: user.employee_firstname,
+            surname: user.employee_surname,
+            dob: user.employee_dob,
+            email: user.employee_email,
+            username: user.employee_username,
+            passwordLen: user.employee_password.length,
             isAdmin: isAdmin,
           };
           // Send success response with token and user object
@@ -64,6 +67,58 @@ router.post("/login", (req, res) => {
       }
     }
   );
+});
+
+router.post("/saveAccountSettings", async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decodedToken = await verifyToken(token);
+    const employee_id = decodedToken.user_id;
+
+    const { newFirstname, newSurname, newUsername, newPassword } = req.body;
+
+    let query = "UPDATE employees SET ";
+    const params = [];
+    if (newFirstname) {
+      query += "employee_firstname = ?, ";
+      params.push(newFirstname);
+    }
+    if (newSurname) {
+      query += "employee_surname = ?, ";
+      params.push(newSurname);
+    }
+    if (newUsername) {
+      query += "employee_username = ?, ";
+      params.push(newUsername);
+    }
+    if (newPassword) {
+      query += "employee_password = ?, ";
+      params.push(newPassword);
+    }
+    //Remove last , and space
+    query = query.slice(0, -2);
+    query += " WHERE employee_id = ?";
+    params.push(employee_id);
+    console.log(query, employee_id);
+
+    db.query(query, params, (err, results) => {
+      if (err) {
+        console.log("Database query error", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Internal server error" });
+      }
+      // If the update is successful, you can send a success response
+      res.status(200).json({
+        success: true,
+        message: "Account settings updated successfully",
+      });
+    });
+  } catch (error) {
+    console.error("JWT verification error: ", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
 });
 
 module.exports = router; // Export the router

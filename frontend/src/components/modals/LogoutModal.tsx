@@ -16,10 +16,14 @@ function LogoutModal({ onLogout, position }: LogoutModalProps) {
     }
   }, [position]);
 
+  function goToSettings() {
+    window.location.href = "/settings";
+  }
   return (
     <div className={Styles.modal} ref={modalRef}>
       <div className={Styles.modalContent}>
         <p>Are you sure you want to logout?</p>
+        <button onClick={goToSettings}>Settings</button>
         <button onClick={onLogout}>Logout</button>
       </div>
     </div>
