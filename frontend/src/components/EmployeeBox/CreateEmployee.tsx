@@ -21,7 +21,7 @@ function CreateEmployee() {
       isManager: isManager,
     };
 
-    fetch("http://localhost:5000/api/user/createEmployee", {
+    fetch("http://localhost:5000/api/employees/createEmployee", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

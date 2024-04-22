@@ -24,18 +24,45 @@ router.post("/listEmployees", async (req, res) => {
             .json({ success: false, message: "Internal server error" });
           return;
         }
-        res.json({success: true, employees: results});
-
+        res.json({ success: true, employees: results });
       }
     );
-
   } catch (error) {
     console.error("JWT verification error:", error);
     res.status(401).json({ success: false, message: "Unauthorized" });
   }
 });
 
+router.post("/createEmployee", async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    const decodedToken = await verifyToken(token);
 
+    const { firstname, surname, dob, email, username, password, isManager } =
+      req.body;
 
+    const query = `INSERT INTO employees (employee_firstname, employee_surname, employee_dob, employee_email, employee_username, employee_password, employee_manager)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    db.query(
+      query,
+      [firstname, surname, dob, email, username, password, isManager],
+      (error, results) => {
+        if (error) {
+          console.error("Error creating employee", error);
+          res.status(500);
+        } else {
+          console.log("Employee Created");
+          res.status(201).json({
+            message: "Employee Created",
+          });
+        }
+      }
+    );
+  } catch (error) {
+    console.error("JWT verification error: ", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+});
 
 module.exports = router;
