@@ -128,6 +128,14 @@ router.post("/createEmployee", async (req, res) => {
 
     const { firstname, surname, dob, email, username, password, isManager } =
       req.body;
+    if (isManager) {
+      isManger = 1;
+    } else {
+      isManager = 2;
+    }
+
+    const query = `INSERT INTO employees (employee_firstname, employee_surname, employee_dob, employee_email, employee_username, employee_password, employee_manager)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(
       query,
