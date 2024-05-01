@@ -33,6 +33,10 @@ function EmployeeDetails() {
     }
   };
 
+  const goToEmployeeProfile = (employeeID: number) => {
+    window.location.href = `/profile/${employeeID}`;
+  };
+
   // Timer to refresh tasks every 5 minutes and automatically refresh it when mounted
   useEffect(() => {
     refreshEmployees();
@@ -60,8 +64,10 @@ function EmployeeDetails() {
             </thead>
             <tbody>
               {employees.map((employee) => (
-                <tr>
-                  {/* <td>{employee.employee_pic}</td> */}
+                <tr
+                  onClick={() => goToEmployeeProfile(employee.employee_id)}
+                  key={employee.employee_id}
+                >
                   <td>{employee.employee_firstname}</td>
                   <td>{employee.employee_surname}</td>
                   <td>{employee.employee_email}</td>
