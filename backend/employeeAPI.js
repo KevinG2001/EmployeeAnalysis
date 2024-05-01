@@ -65,4 +65,28 @@ router.post("/createEmployee", async (req, res) => {
   }
 });
 
+router.post("/getEmployeeData", async (req, res) => {
+  try {
+    const employeeID = req.body.employeeId;
+
+    db.query(
+      "SELECT * from employees WHERE employee_id = ?",
+      [employeeID],
+      (err, results) => {
+        if (err) {
+          console.error("Database query error:", err);
+          res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+          return;
+        }
+        res.json({ success: true, employee: results });
+      }
+    );
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+});
+
 module.exports = router;
