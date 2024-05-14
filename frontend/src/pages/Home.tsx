@@ -22,9 +22,11 @@ function Home() {
             <Statistics />
           </div>
         </div>
-        <div className={Styles.longBox}>
+        <div className={Styles.rightPanel}>
           {/* Change this to recent Tasks */}
-          <TaskBox />
+          <div className={Styles.longBox}>
+            <TaskBox />
+          </div>
         </div>
       </div>
     </>
