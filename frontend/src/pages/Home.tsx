@@ -33,18 +33,6 @@ function Home() {
     <>
       <div className={Styles.container}>
         <div className={Styles.wrapper}>
-          <div className={Styles.headerWrapper}>
-            <p className={Styles.title}>Welcome {user?.firstname}</p>
-            <img
-              src={profilePic}
-              alt="Profile Picture"
-              className={Styles.profilePic}
-              onClick={toggleModal}
-            />
-            {showModal && (
-              <LogoutModal onLogout={handleLogout} position={modalPosition} />
-            )}
-          </div>
           <div className={Styles.boxContainer}>
             {/* Box 1 */}
             <div className={Styles.box}>
