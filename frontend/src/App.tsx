@@ -5,12 +5,24 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import EmployeeProfile from "./pages/EmployeeProfile";
 import Navbar from "./components/GlobalComps/Navbar";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user !== null) {
+      setShowNavbar(true);
+    } else {
+      setShowNavbar(false);
+    }
+  }, []);
+
   return (
     <Router>
       <div id="root">
-        <Navbar />
+        {showNavbar && <Navbar />}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Home />} />
