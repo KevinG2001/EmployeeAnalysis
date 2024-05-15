@@ -1,10 +1,9 @@
-import React from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import useTasks from "../../util/taskUtil";
 
 function AvailableTasks() {
-  const { tasks, isLoading, error, refreshTasks } = useTasks("availabletasks");
+  const { tasks, isLoading, error } = useTasks("availabletasks");
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
