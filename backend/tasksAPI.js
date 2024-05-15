@@ -6,7 +6,7 @@ const { generateToken, verifyToken } = require("./authentication");
 //Tasks endpoint
 //If the employeeID is assigned to a task we will add the taskID to a list and then
 //Show all the tasks we have that match that id
-router.post("/tasks", async (req, res) => {
+router.post("/assignedtasks", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
