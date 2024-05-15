@@ -5,5 +5,5 @@ export type Task = {
   task_difficulty: number;
   task_duedate: Date;
   task_description: string;
-  task_completed_date: Date;
+  task_completed_date: Date | null;
 };

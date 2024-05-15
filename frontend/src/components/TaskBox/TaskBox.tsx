@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Tasks from "./Tasks";
+import AssignedTasks from "./AssignedTasks";
 import Styles from "../../styles/Tasks.module.scss";
 import { useUser } from "../../util/userUtil";
 import CreateTask from "./CreateTask";
@@ -13,7 +13,7 @@ function TaskBox() {
   const panelComponents = {
     "Completed Tasks": <CompletedTasks />,
     "Available Tasks": <AvailableTasks />,
-    "Assigned Tasks": <Tasks />,
+    "Assigned Tasks": <AssignedTasks />,
     "Create New Task": user?.isAdmin && <CreateTask />,
   };
 

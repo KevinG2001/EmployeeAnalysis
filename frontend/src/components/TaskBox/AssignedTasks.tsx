@@ -2,16 +2,15 @@ import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import useTasks from "../../util/taskUtil";
 
-function AvailableTasks() {
-  const { tasks, isLoading, error } = useTasks("availabletasks");
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+function Tasks() {
+  const { tasks, isLoading } = useTasks("assignedtasks");
 
   return (
     <div className={Styles.container}>
-      {tasks.length === 0 ? (
-        <p>No tasks available</p>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : tasks.length === 0 ? (
+        <p>No tasks assigned to you</p>
       ) : (
         <table className={listStyles.listContainer}>
           <thead>
@@ -38,4 +37,4 @@ function AvailableTasks() {
   );
 }
 
-export default AvailableTasks;
+export default Tasks;
