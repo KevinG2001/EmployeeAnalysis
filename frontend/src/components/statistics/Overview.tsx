@@ -12,7 +12,13 @@ function Overview() {
     <>
       <div>
         <div>
-          <div>Logout modal now on profile pic</div>
+          <div>This is where the overview box will go</div>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt
+            deleniti quibusdam praesentium dolorem esse inventore, ipsum, sed,
+            officiis autem animi suscipit debitis ipsa maxime sapiente modi a
+            laborum quisquam obcaecati!
+          </div>
         </div>
       </div>
     </>

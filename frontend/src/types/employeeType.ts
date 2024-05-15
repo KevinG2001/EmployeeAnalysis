@@ -5,4 +5,5 @@ export type Employee = {
   employee_dob: Date;
   employee_email: string;
   employee_manager: boolean;
+  employee_email: string;
 };

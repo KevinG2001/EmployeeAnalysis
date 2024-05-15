@@ -21,7 +21,7 @@ function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         // Redirect to home page
-        window.location.href = "/home";
+        window.location.href = "/dashboard";
       } else {
         alert(data.message);
       }
