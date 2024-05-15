@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 
-const useTasks = (endpoint) => {
-  const [tasks, setTasks] = useState([]);
+const useTasks = (endpoint: string) => {
+  const [tasks, setTasks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchTasks = useCallback(async () => {
     try {
@@ -21,8 +21,12 @@ const useTasks = (endpoint) => {
       if (!response.ok) throw new Error(`Failed to fetch ${endpoint}`);
       const data = await response.json();
       setTasks(data.tasks);
-    } catch (error) {
-      setError(error.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
       setIsLoading(false);
     }

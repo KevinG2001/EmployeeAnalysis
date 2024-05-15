@@ -1,78 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
-import { Task } from "../../types/taskType";
+import useTasks from "../../util/taskUtil";
 
 function AvailableTasks() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { tasks, isLoading, error, refreshTasks } = useTasks("availabletasks");
 
-  const refreshTasks = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      //Fetchs the tasks from backend
-      const response = await fetch(
-        "http://localhost:5000/api/tasks/availabletasks",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch tasks");
-      }
-      const data = await response.json();
-      setTasks(data.tasks);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error refreshing tasks:", error);
-    }
-  };
-
-  //Timer to refresh tasks every 5 minutes and automatically refresh it when mounted
-  useEffect(() => {
-    refreshTasks();
-
-    const interval = setInterval(refreshTasks, 5 * 60 * 100);
-
-    return () => clearInterval(interval);
-  }, []);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <>
-      <div className={Styles.container}>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : tasks.length === 0 ? (
-          <p>No tasks available</p>
-        ) : (
-          <table className={listStyles.listContainer}>
-            <thead>
-              <tr>
-                <th>Task Name</th>
-                <th>Task Description</th>
-                <th>Difficulty</th>
-                <th>Priority</th>
+    <div className={Styles.container}>
+      {tasks.length === 0 ? (
+        <p>No tasks available</p>
+      ) : (
+        <table className={listStyles.listContainer}>
+          <thead>
+            <tr>
+              <th>Task Name</th>
+              <th>Task Description</th>
+              <th>Difficulty</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((task) => (
+              <tr key={task.task_id}>
+                <td>{task.task_name}</td>
+                <td>{task.task_description}</td>
+                <td>{task.task_difficulty}</td>
+                <td>{task.task_priority}</td>
               </tr>
-            </thead>
-            <tbody>
-              {tasks.map((task) => (
-                <tr key={task.task_id}>
-                  <td>{task.task_name}</td>
-                  <td>{task.task_description}</td>
-                  <td>{task.task_difficulty}</td>
-                  <td>{task.task_priority}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-    </>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 }
 
