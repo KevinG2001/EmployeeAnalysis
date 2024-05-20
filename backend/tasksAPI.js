@@ -3,9 +3,24 @@ const router = express.Router();
 const db = require("./databaseConfig");
 const { generateToken, verifyToken } = require("./authentication");
 
+function formatDate(dateObj) {
+  if (!(dateObj instanceof Date) && typeof dateObj !== "string") {
+    return dateObj;
+  }
+
+  const isoString = dateObj instanceof Date ? dateObj.toISOString() : dateObj;
+  const datePart = isoString.split("T")[0]; // Extract date part
+
+  const [year, month, day] = datePart.split("-");
+  const formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate; // Return the formatted date
+}
+
 //Tasks endpoint
 //If the employeeID is assigned to a task we will add the taskID to a list and then
 //Show all the tasks we have that match that id
+// Tasks endpoint
 router.post("/assignedtasks", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
@@ -44,8 +59,18 @@ router.post("/assignedtasks", async (req, res) => {
                   .json({ success: false, message: "Internal server error" });
                 return;
               }
+
+              // Format the dates
+              const formattedTasks = tasksResults.map((task) => {
+                const formattedTask = {
+                  ...task,
+                  task_duedate: formatDate(task.task_duedate),
+                };
+                return formattedTask;
+              });
+
               // Returns the tasks that the client is in and are not completed
-              res.json({ success: true, tasks: tasksResults });
+              res.json({ success: true, tasks: formattedTasks });
             }
           );
         }
@@ -58,6 +83,8 @@ router.post("/assignedtasks", async (req, res) => {
 });
 
 //Create Task endpoint
+//!TODO
+//Make it so that you can put the date in like normal day month year not year month day
 router.post("/createTask", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
@@ -137,8 +164,16 @@ router.post("/completedTasks", async (req, res) => {
                   .json({ success: false, message: "Internal server error" });
                 return;
               }
+
+              const formattedTasks = tasksResults.map((task) => {
+                const formattedTask = {
+                  ...task,
+                  task_duedate: formatDate(task.task_duedate),
+                };
+                return formattedTask;
+              });
               //Returns the results as json
-              res.json({ success: true, tasks: tasksResults });
+              res.json({ success: true, tasks: formattedTasks });
             }
           );
         }
@@ -199,7 +234,15 @@ router.post("/availabletasks", async (req, res) => {
                 return;
               }
               // Returns the tasks that are not assigned to the user
-              res.json({ success: true, tasks: tasksResults });
+              const formattedTasks = tasksResults.map((task) => {
+                const formattedTask = {
+                  ...task,
+                  task_duedate: formatDate(task.task_duedate),
+                };
+                return formattedTask;
+              });
+              //Returns the results as json
+              res.json({ success: true, tasks: formattedTasks });
             }
           );
         }
