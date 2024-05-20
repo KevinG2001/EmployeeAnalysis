@@ -21,23 +21,26 @@ const panelComponents = {
 function TaskTable() {
   const [panelPointer, setPanelPointer] = useState<Panel>(panels.ASSIGNED);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const divName = e.currentTarget.textContent as Panel;
-    setPanelPointer(divName);
+  const handleClick = (panel: Panel) => {
+    setPanelPointer(panel);
   };
 
   return (
     <div className={style.tableContainer}>
       <div className={style.btnWrapper}>
         {Object.values(panels).map((panel, index) => (
-          <div key={index} onClick={handleClick} className={style.btn}>
+          <div
+            key={index}
+            onClick={() => handleClick(panel)}
+            className={`${style.btn} ${
+              panelPointer === panel ? style.active : ""
+            }`}
+          >
             {panel}
           </div>
         ))}
       </div>
-      <div className={style.tableContainer}>
-        {panelComponents[panelPointer]}
-      </div>
+      {panelComponents[panelPointer]}
     </div>
   );
 }
