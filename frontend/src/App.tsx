@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import EmployeeProfile from "./pages/EmployeeProfile";
 import Navbar from "./components/GlobalComps/Navbar";
+import Task from "./pages/Task";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function WithNavbarRoutes() {
       <Routes>
         <Route path="/dashboard" element={<Home />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/tasks" element={<Task />} />
         <Route path="/profile/:employeeId" element={<EmployeeProfile />} />
       </Routes>
     </>

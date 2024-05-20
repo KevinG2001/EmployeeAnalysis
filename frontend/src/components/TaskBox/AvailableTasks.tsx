@@ -16,19 +16,21 @@ function AvailableTasks() {
         <table className={listStyles.listContainer}>
           <thead>
             <tr>
-              <th>Task Name</th>
-              <th>Task Description</th>
+              <th>Task ID</th>
+              <th>Title</th>
               <th>Difficulty</th>
               <th>Priority</th>
+              <th>Due Date</th>
             </tr>
           </thead>
           <tbody>
             {tasks.map((task) => (
               <tr key={task.task_id}>
+                <td>{task.task_id}</td>
                 <td>{task.task_name}</td>
-                <td>{task.task_description}</td>
                 <td>{task.task_difficulty}</td>
                 <td>{task.task_priority}</td>
+                <td>{task.task_duedate}</td>
               </tr>
             ))}
           </tbody>

@@ -1,0 +1,16 @@
+.taskContainer {
+  width: 100%;
+  display: flex;
+  margin: 5% 0%;
+  .leftWrapper {
+    max-width: 818px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .rightWrapper {
+    max-width: 408px;
+    width: 100%;
+  }
+}

@@ -1,8 +1,17 @@
 .listContainer {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .listItem {
   display: flex;
   margin: 15px;
+}
+
+tr {
+  text-align: left;
+}
+
+td {
+  border-top: 1px black solid;
 }
