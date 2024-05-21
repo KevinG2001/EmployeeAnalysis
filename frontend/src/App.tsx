@@ -27,7 +27,7 @@ function WithNavbarRoutes() {
       <Navbar />
       <Routes>
         <Route path="/dashboard" element={<Home />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/account" element={<Settings />} />
         <Route path="/tasks" element={<Task />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/profile/:employeeId" element={<EmployeeProfile />} />

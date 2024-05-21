@@ -1,0 +1,30 @@
+.container {
+  width: 60%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 50px;
+  border: 2px solid black;
+}
+
+.content {
+  width: inherit;
+  height: inherit;
+}
+
+.wrapper {
+  height: 100%;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .btn {
+    width: 100%;
+    font-size: 18px;
+    height: 50px;
+    border-radius: 50px;
+  }
+}
