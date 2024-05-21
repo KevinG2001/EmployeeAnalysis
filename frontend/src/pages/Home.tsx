@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
 import Styles from "../styles/home.module.scss";
 import Statistics from "../components/statistics/StatisticsBox";
 import Overview from "../components/statistics/Overview";
-import TaskBox from "../components/TaskBox/TaskBox";
-import YourTeam from "../components/YourTeam";
+import YourTeam from "../components/DashboardPageComponents/YourTeam";
+import RecentTasks from "../components/DashboardPageComponents/RecentTasks";
 
 function Home() {
   return (
@@ -19,9 +18,8 @@ function Home() {
           </div>
         </div>
         <div className={Styles.rightPanel}>
-          {/* Change this to recent Tasks */}
           <div className={Styles.longBox}>
-            <TaskBox />
+            <RecentTasks />
           </div>
         </div>
       </div>
