@@ -13,9 +13,10 @@ router.post("/amountOfTasks", async (req, res) => {
     db.query(
       `
         SELECT
+          (SELECT COUNT(*) FROM tasks) AS totalTaskCount,
           (SELECT COUNT(*) FROM assignedtasks WHERE employee_id = ?) AS assignedTaskCount,
           (SELECT COUNT(*) FROM tasks WHERE task_completed_date IS NULL) AS upComingTaskCount,
-          (SELECT COUNT(*) FROM tasks) AS totalTaskCount
+          (SELECT COUNT(*) FROM tasks WHERE task_duedate < CURDATE()) AS overdueCount
       `,
       [employeeID],
       (err, result) => {
@@ -27,14 +28,19 @@ router.post("/amountOfTasks", async (req, res) => {
           return;
         }
 
-        const { assignedTaskCount, upComingTaskCount, totalTaskCount } =
-          result[0];
+        const {
+          assignedTaskCount,
+          upComingTaskCount,
+          totalTaskCount,
+          overdueCount,
+        } = result[0];
         res.json({
           success: true,
           stats: {
             assignedTaskCount,
             upComingTaskCount,
             totalTaskCount,
+            overdueCount,
           },
         });
       }
@@ -54,9 +60,10 @@ router.post("/percentages", async (req, res) => {
     db.query(
       `
         SELECT
+          (SELECT COUNT(*) FROM tasks) AS totalTaskCount,
           (SELECT COUNT(*) FROM assignedtasks WHERE employee_id = ?) AS assignedTaskCount,
           (SELECT COUNT(*) FROM tasks WHERE task_completed_date IS NOT NULL) AS completedTaskCount,
-          (SELECT COUNT(*) FROM tasks) AS totalTaskCount
+          (SELECT COUNT(*) FROM tasks WHERE task_completed_date IS NUll) AS notCompletedTaskCount
       `,
       [employeeID],
       (err, result) => {
@@ -68,8 +75,12 @@ router.post("/percentages", async (req, res) => {
           return;
         }
 
-        const { assignedTaskCount, completedTaskCount, totalTaskCount } =
-          result[0];
+        const {
+          assignedTaskCount,
+          completedTaskCount,
+          totalTaskCount,
+          notCompletedTaskCount,
+        } = result[0];
         const assignedCount = parseInt(assignedTaskCount);
         const totalCount = parseInt(totalTaskCount);
         const completedTaskPercentage = (
@@ -77,10 +88,16 @@ router.post("/percentages", async (req, res) => {
           100
         ).toFixed(2);
 
+        const closedTaskPercentage = (
+          (notCompletedTaskCount / totalCount) *
+          100
+        ).toFixed(2);
+
         res.json({
           success: true,
           stats: {
             completedTaskPercentage,
+            closedTaskPercentage,
           },
         });
       }
