@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Styles from "../../styles/BoxCards/tasks.module.scss";
-import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
+import style from "../../styles/Employee/EmployeeTable.module.scss";
 import { Employee } from "../../types/employeeType";
 
 function EmployeeDetails() {
@@ -48,13 +47,13 @@ function EmployeeDetails() {
 
   return (
     <>
-      <div className={Styles.container}>
+      <div className={style.tableContainer}>
         {isLoading ? (
           <p>Loading...</p>
         ) : employees.length === 0 ? (
           <p>No employees available</p>
         ) : (
-          <table className={listStyles.listContainer}>
+          <table className={style.listContainer}>
             <thead>
               <tr>
                 <th>Employee First Name</th>

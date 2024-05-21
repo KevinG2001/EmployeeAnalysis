@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Employee } from "../../types/employeeType";
-import Styles from "../../styles/BoxCards/tasks.module.scss";
-import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
+import styles from "../../styles/Employee/EmployeeTable.module.scss";
 
 function EmployeeDashboard() {
   const [employees, setEmployee] = useState<Employee[]>([]);
@@ -46,8 +45,8 @@ function EmployeeDashboard() {
 
   return (
     <>
-      <div className={Styles.container}>
-        <table className={listStyles.listContainer}>
+      <div className={styles.container}>
+        <table className={styles.listContainer}>
           <thead>
             <tr>
               <th>Firstname</th>
