@@ -1,0 +1,15 @@
+.employeeContainer {
+  width: 100%;
+  display: flex;
+  margin: 5% 0%;
+  .leftWrapper {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .rightWrapper {
+    max-width: 408px;
+    width: 100%;
+  }
+}
