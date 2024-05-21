@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser } from "../../util/userUtil";
-import style from "../../styles/Settings/AccountDetails.module.scss";
+import style from "../../styles/Settings/Details.module.scss";
 import ProfilePic from "../../assets/profilePicPlaceholder.svg";
 
 function AccountDetails() {
@@ -9,10 +9,6 @@ function AccountDetails() {
   const [newSurname, setNewSurname] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
-  function goHome() {
-    window.location.href = "/home";
-  }
 
   const date = user?.dob.split("T")[0];
   const year = date?.split("-")[0];
@@ -116,7 +112,6 @@ function AccountDetails() {
             />
           </div>
           <div className={style.btnWrapper}>
-            <button onClick={goHome}>Home</button>
             <button onClick={saveChanges}>Save Changes</button>
           </div>
         </div>
