@@ -12,10 +12,12 @@ function TaskStatistics() {
         <div>
           <TaskBarChart />
         </div>
-        <div>OverDue: </div>
-        <div>Not Completed: {tasks.upComingTaskCount}</div>
-        <div>Assigned: {tasks.assignedTaskCount}</div>
-        <div>Total: {tasks.totalTaskCount}</div>
+        <div className={style.textWrapper}>
+          <div>OverDue: </div>
+          <div>Not Completed: {tasks.upComingTaskCount}</div>
+          <div>Assigned: {tasks.assignedTaskCount}</div>
+          <div>Total: {tasks.totalTaskCount}</div>
+        </div>
       </div>
     </>
   );

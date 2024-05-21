@@ -1,13 +1,11 @@
 .bubbleContainer {
-  max-width: 730px;
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-evenly;
 }
 
 .bubble {
-  max-width: 175px;
-  width: 100%;
+  width: 20%;
   min-height: 105px;
   height: 100%;
   background-color: lightgray;
