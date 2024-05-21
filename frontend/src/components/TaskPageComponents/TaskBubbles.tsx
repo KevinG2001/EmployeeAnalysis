@@ -1,36 +1,36 @@
 import style from "../../styles/tasks/TaskBubbles.module.scss";
-import useTasks from "../../util/taskUtil";
+import useTasksStats from "../../util/taskStatsUtil";
 
 function TaskBubbles() {
-  const { tasks } = useTasks("amountOfTasks");
+  const { stats } = useTasksStats("amountOfTasks");
   return (
     <>
       <div className={style.bubbleContainer}>
         <div className={style.bubble}>
           <div className={style.leftSide}>Img</div>
           <div className={style.rightSide}>
-            <div>{tasks.totalTaskCount}</div>
+            <div>{stats.totalTaskCount}</div>
             <div>Total Tasks</div>
           </div>
         </div>
         <div className={style.bubble}>
           <div className={style.leftSide}>Img</div>
           <div className={style.rightSide}>
-            <div>{tasks.notCompleteCount}</div>
+            <div>{stats.notCompleteCount}</div>
             <div>Not Complete</div>
           </div>
         </div>
         <div className={style.bubble}>
           <div className={style.leftSide}>Img</div>
           <div className={style.rightSide}>
-            <div>{tasks.overdueCount}</div>
+            <div>{stats.overdueCount}</div>
             <div>Overdue</div>
           </div>
         </div>
         <div className={style.bubble}>
           <div className={style.leftSide}>Img</div>
           <div className={style.rightSide}>
-            <div>{tasks.upComingTaskCount}</div>
+            <div>{stats.upComingTaskCount}</div>
             <div>Upcoming</div>
           </div>
         </div>

@@ -1,13 +1,13 @@
-import useTasks from "../../../util/taskUtil";
 import { Doughnut } from "react-chartjs-2";
 import { ArcElement, Chart as ChartJS } from "chart.js";
+import useTaskStats from "../../../util/taskStatsUtil";
 
 ChartJS.register(ArcElement);
 
 function TaskBarChart() {
-  const { tasks } = useTasks("amountOfTasks");
+  const { stats } = useTaskStats("amountOfTasks");
 
-  const { assignedTaskCount, upComingTaskCount, totalTaskCount } = tasks;
+  const { assignedTaskCount, upComingTaskCount, totalTaskCount } = stats;
 
   const data = {
     labels: ["Assigned Tasks", "Upcoming Tasks", "Total Tasks"],
