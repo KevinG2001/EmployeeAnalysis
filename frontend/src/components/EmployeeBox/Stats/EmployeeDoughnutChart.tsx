@@ -1,26 +1,25 @@
 import { Doughnut } from "react-chartjs-2";
 import { ArcElement, Chart as ChartJS } from "chart.js";
-import useTaskStats from "../../../util/taskStatsUtil";
+import useEmployeeStats from "../../../util/employeeStatsUtil";
+import Efficency from "../../statistics/StatisticsBox";
 
 ChartJS.register(ArcElement);
 
-function TaskBarChart() {
-  const { stats } = useTaskStats("amountOfTasks");
-
-  const { assignedTaskCount, upComingTaskCount, totalTaskCount }: any = stats;
+function EmployeeDoughnutChart() {
+  const employeeId = 1;
+  const { stats }: any = useEmployeeStats("doughnutStats", employeeId);
 
   const data = {
-    labels: ["Assigned Tasks", "Upcoming Tasks", "Total Tasks"],
+    labels: ["Efficency", "Timeliness"],
     datasets: [
       {
-        label: "Tasks",
-        data: [assignedTaskCount, upComingTaskCount, totalTaskCount],
+        label: "Stats",
+        data: [stats.overallEfficiency, stats.timeliness],
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
       },
     ],
   };
-
   return (
     <>
       <div>
@@ -30,4 +29,4 @@ function TaskBarChart() {
   );
 }
 
-export default TaskBarChart;
+export default EmployeeDoughnutChart;

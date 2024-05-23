@@ -2,7 +2,7 @@ import style from "../../styles/tasks/TaskBubbles.module.scss";
 import useTasksStats from "../../util/taskStatsUtil";
 
 function TaskBubbles() {
-  const { stats } = useTasksStats("amountOfTasks");
+  const { stats }: any = useTasksStats("amountOfTasks");
   return (
     <>
       <div className={style.bubbleContainer}>

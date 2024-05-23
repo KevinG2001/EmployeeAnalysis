@@ -1,4 +1,4 @@
-import BestEmployees from "../components/EmployeeBox/BestEmployees";
+import EmployeeStats from "../components/EmployeeBox/EmployeeStats";
 import EmployeeDashboard from "../components/EmployeeBox/EmployeeTable";
 import style from "../styles/Employee/EmployeePage.module.scss";
 
@@ -12,7 +12,7 @@ function Employee() {
         </div>
         {/* Right */}
         <div className={style.rightWrapper}>
-          <BestEmployees />
+          <EmployeeStats />
         </div>
       </div>
     </>
