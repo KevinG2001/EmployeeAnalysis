@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f2f2f2; /* Light grey background for the whole page */
+}
+
+.sidebar {
+    width: 250px; /* Slightly wider sidebar */
+    background-color: #e0e0e0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-right: 1px solid #ccc;
+    position: relative; /* For positioning user-profile at the bottom */
+}
+
+.product-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #003366; /* Darker blue for the product name */
+}
+
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.nav-menu li {
+    padding: 10px;
+    text-align: left; /* Align text to the left */
+    cursor: pointer;
+    color: #333;
+}
+
+.nav-menu .active {
+    background-color: #0056b3;
+    color: white;
+    border-radius: 5px;
+}
+
+.user-profile {
+    margin-top: auto;
+    text-align: center;
+    width: 100%; /* Full width for profile section */
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-size: 1em;
+    margin: 10px 0 5px 0;
+}
+
+.user-email {
+    font-size: 0.8em;
+    color: #555;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #f8f8f8;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+    color: #333; /* Text color */
+    font-weight: bold; /* Bold text */
+}
+
+.tab-button.active {
+    background-color: #ffcc99;
+    color: #333; /* Text color */
+}
+
+.tab-content {
+    border: 1px solid #ffcc99;
+    border-top: none;
+    padding: 20px;
+    background-color: white; /* White background for content area */
+    min-height: 500px; /* Minimum height for content area */
+}
