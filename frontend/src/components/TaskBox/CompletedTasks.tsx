@@ -1,10 +1,23 @@
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import useTasks from "../../util/taskUtil";
+import { useState } from "react";
+import TaskModal from "../TaskPageComponents/TaskModal";
 
 function CompletedTasks() {
   const { tasks, isLoading, error } = useTasks("completedTasks");
-  if (error) return <div>Error: {error}</div>;
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleRowClick = (task: any) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTask(null);
+  };
 
   return (
     <>
@@ -26,7 +39,7 @@ function CompletedTasks() {
             </thead>
             <tbody>
               {tasks.map((task) => (
-                <tr key={task.task_id}>
+                <tr key={task.task_id} onClick={() => handleRowClick(task)}>
                   <td>{task.task_id}</td>
                   <td>{task.task_name}</td>
                   <td>{task.task_difficulty}</td>
@@ -36,6 +49,9 @@ function CompletedTasks() {
               ))}
             </tbody>
           </table>
+        )}
+        {isModalOpen && (
+          <TaskModal task={selectedTask} onClose={handleCloseModal} />
         )}
       </div>
     </>
