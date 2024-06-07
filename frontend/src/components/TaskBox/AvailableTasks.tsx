@@ -1,12 +1,23 @@
 import Styles from "../../styles/BoxCards/tasks.module.scss";
 import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
 import useTasks from "../../util/taskUtil";
+import { useState } from "react";
+import TaskModal from "../TaskPageComponents/TaskModal";
 
 function AvailableTasks() {
   const { tasks, isLoading, error } = useTasks("availabletasks");
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  const handleRowClick = (task: any) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTask(null);
+  };
 
   return (
     <div className={Styles.container}>
@@ -25,7 +36,7 @@ function AvailableTasks() {
           </thead>
           <tbody>
             {tasks.map((task) => (
-              <tr key={task.task_id}>
+              <tr key={task.task_id} onClick={() => handleRowClick(task)}>
                 <td>{task.task_id}</td>
                 <td>{task.task_name}</td>
                 <td>{task.task_difficulty}</td>
@@ -35,6 +46,9 @@ function AvailableTasks() {
             ))}
           </tbody>
         </table>
+      )}
+      {isModalOpen && (
+        <TaskModal task={selectedTask} onClose={handleCloseModal} />
       )}
     </div>
   );
