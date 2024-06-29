@@ -1,11 +1,11 @@
-import Styles from "../../styles/BoxCards/tasks.module.scss";
-import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
-import useTasks from "../../util/taskUtil";
+import Styles from "../../../styles/BoxCards/tasks.module.scss";
+import listStyles from "../../../styles/BoxCards/tableStyle.module.scss";
+import useTasks from "../../../util/taskUtil";
 import { useState } from "react";
-import TaskModal from "../TaskPageComponents/TaskModal";
+import TaskModal from "../TaskModal";
 
 function CompletedTasks() {
-  const { tasks, isLoading, error } = useTasks("completedTasks");
+  const { tasks, isLoading } = useTasks("completedTasks");
   const [selectedTask, setSelectedTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

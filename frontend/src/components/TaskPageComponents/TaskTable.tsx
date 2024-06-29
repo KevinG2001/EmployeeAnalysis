@@ -1,8 +1,8 @@
 import { useState } from "react";
 import style from "../../styles/tasks/TaskTable.module.scss";
-import CompletedTasks from "../TaskBox/CompletedTasks";
-import AvailableTasks from "../TaskBox/AvailableTasks";
-import AssignedTasks from "../TaskBox/AssignedTasks";
+import CompletedTasks from "./TaskBox/CompletedTasks";
+import AvailableTasks from "./TaskBox/AvailableTasks";
+import AssignedTasks from "./TaskBox/AssignedTasks";
 
 const panels = {
   ASSIGNED: "Assigned to you",

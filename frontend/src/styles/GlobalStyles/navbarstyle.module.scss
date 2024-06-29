@@ -17,12 +17,37 @@
 }
 
 .compWrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 250px;
   width: 100%;
+}
+
+.logoutButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px 16px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.compWrapper:hover .logoutButton {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 .title {
@@ -43,6 +68,10 @@
   text-decoration: none;
   color: grey;
   &.active {
+    background-color: blue;
+    color: white;
+  }
+  &:hover {
     background-color: blue;
     color: white;
   }

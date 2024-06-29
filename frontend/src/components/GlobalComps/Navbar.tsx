@@ -3,6 +3,7 @@ import { useUser } from "../../util/userUtil";
 import profilePic from "../../assets/profilePicPlaceholder.svg";
 import styles from "../../styles/GlobalStyles/navbarstyle.module.scss";
 import { Link, useLocation } from "react-router-dom";
+import { logout } from "../../util/logoutUtil";
 
 function Navbar() {
   const user = useUser();
@@ -56,13 +57,18 @@ function Navbar() {
             </Link>
           </div>
           <div className={styles.compWrapper}>
-            <div>
-              <img src={profilePic} alt="pic" className={styles.profilePic} />
+            <div className={styles.logout}>
+              <div>
+                <img src={profilePic} alt="pic" className={styles.profilePic} />
+              </div>
+              <div>
+                {user?.firstname} {user?.surname}
+              </div>
+              <div>{user?.email}</div>
+              <button className={styles.logoutButton} onClick={logout}>
+                Logout
+              </button>
             </div>
-            <div>
-              {user?.firstname} {user?.surname}
-            </div>
-            <div>{user?.email}</div>
           </div>
         </div>
       </nav>
