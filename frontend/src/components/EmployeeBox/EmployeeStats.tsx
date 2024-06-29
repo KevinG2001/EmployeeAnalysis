@@ -9,7 +9,7 @@ function EmployeeStats() {
   return (
     <>
       <div className={style.employeeStatContainer}>
-        Employee Stats
+        Your Stats
         <EmployeeDoughnutChart />
         <div className={style.textWrapper}>
           <div>Efficency: {stats.overallEfficiency}%</div>
