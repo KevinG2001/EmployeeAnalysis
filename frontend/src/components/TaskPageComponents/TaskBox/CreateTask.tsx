@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Style from "../../styles/tasks/CreateTask.module.scss";
+import Style from "../../../styles/tasks/CreateTask.module.scss";
 
 function CreateTask() {
   const [name, setName] = useState("");

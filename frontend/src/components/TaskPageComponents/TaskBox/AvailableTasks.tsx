@@ -1,11 +1,11 @@
-import Styles from "../../styles/BoxCards/tasks.module.scss";
-import listStyles from "../../styles/BoxCards/tableStyle.module.scss";
-import useTasks from "../../util/taskUtil";
+import Styles from "../../../styles/BoxCards/tasks.module.scss";
+import listStyles from "../../../styles/BoxCards/tableStyle.module.scss";
+import useTasks from "../../../util/taskUtil";
 import { useState } from "react";
-import TaskModal from "../TaskPageComponents/TaskModal";
+import TaskModal from "../TaskModal";
 
-function Tasks() {
-  const { tasks, isLoading } = useTasks("assignedtasks");
+function AvailableTasks() {
+  const { tasks } = useTasks("availabletasks");
   const [selectedTask, setSelectedTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,10 +21,8 @@ function Tasks() {
 
   return (
     <div className={Styles.container}>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : tasks.length === 0 ? (
-        <p>No tasks assigned to you</p>
+      {tasks.length === 0 ? (
+        <p>No tasks available</p>
       ) : (
         <table className={listStyles.listContainer}>
           <thead>
@@ -56,4 +54,4 @@ function Tasks() {
   );
 }
 
-export default Tasks;
+export default AvailableTasks;
