@@ -1,4 +1,3 @@
-import React from "react";
 import style from "../../styles/tasks/TaskModal.module.scss";
 
 interface TaskModalProps {
