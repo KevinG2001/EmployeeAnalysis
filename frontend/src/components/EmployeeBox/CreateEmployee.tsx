@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Style from "../../styles/EmployeeBox/createEmployee.module.scss";
 function CreateEmployee() {
   const [firstname, setFirstname] = useState("");
