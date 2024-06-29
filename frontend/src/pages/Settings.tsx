@@ -4,6 +4,8 @@ import style from "../styles/Settings/Settings.module.scss";
 import PersonalDetails from "../components/Settings/PersonalDetails";
 
 function Settings() {
+  //This is the settings page
+  //Its holds the Account details and Personal Details components
   const [activeButton, setActiveButton] = useState("account");
   return (
     <>

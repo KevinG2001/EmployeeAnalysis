@@ -2,6 +2,8 @@ import { useState } from "react";
 import Styles from "../styles/login/login.module.scss";
 
 function Login() {
+  //This page is the login page
+  //It opens when the website is loaded
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

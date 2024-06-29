@@ -4,7 +4,9 @@ import Overview from "../components/statistics/Overview";
 import YourTeam from "../components/DashboardPageComponents/YourTeam";
 import RecentTasks from "../components/DashboardPageComponents/RecentTasks";
 
-function Home() {
+function Dashboard() {
+  // This page is the home page
+  // It is the main dashboard of the website
   return (
     <>
       <div className={Styles.container}>
@@ -27,4 +29,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Dashboard;

@@ -3,6 +3,8 @@ import EmployeeDashboard from "../components/EmployeeBox/EmployeeTable";
 import style from "../styles/Employee/EmployeePage.module.scss";
 
 function Employee() {
+  //This page is the employee page
+  //It holds the list of employees and the "Your stats"
   return (
     <>
       <div className={style.employeeContainer}>
