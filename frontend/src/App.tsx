@@ -1,9 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
-import EmployeeProfile from "./pages/EmployeeProfile";
 import Navbar from "./components/GlobalComps/Navbar";
 import Task from "./pages/Task";
 import Employees from "./pages/Employee";
@@ -26,11 +25,10 @@ function WithNavbarRoutes() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/dashboard" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/account" element={<Settings />} />
         <Route path="/tasks" element={<Task />} />
         <Route path="/employees" element={<Employees />} />
-        <Route path="/profile/:employeeId" element={<EmployeeProfile />} />
       </Routes>
     </>
   );
