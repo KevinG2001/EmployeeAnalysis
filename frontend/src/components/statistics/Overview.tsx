@@ -1,27 +1,16 @@
 import React from "react";
+import Styles from "../../styles/home.module.scss";
 
 function Overview() {
-  const handleLogout = () => {
-    // Remove the token from local storage
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    // Redirect the user to the login page or any other desired location
-    window.location.href = "/";
-  };
   return (
-    <>
+    <div className={Styles.greyBox}>
+      <h2>Overview</h2>
       <div>
-        <div>
-          <div>This is where the overview box will go</div>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt
-            deleniti quibusdam praesentium dolorem esse inventore, ipsum, sed,
-            officiis autem animi suscipit debitis ipsa maxime sapiente modi a
-            laborum quisquam obcaecati!
-          </div>
-        </div>
+        <p>{`{Overall Stat}`}</p>
+        <p>{`{Weekly change}`}</p>
+        <p>{`{Weekly change %}`}</p>
       </div>
-    </>
+    </div>
   );
 }
 

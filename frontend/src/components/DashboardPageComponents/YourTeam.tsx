@@ -1,13 +1,17 @@
 import React from "react";
+import Styles from "../../styles/home.module.scss";
 
 function YourTeam() {
   return (
-    <div>
+    <div className={Styles.greyBox}>
+      <h2>Your Team</h2>
       <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, sapiente
-        repellendus. Recusandae vel animi sunt, dolores voluptate voluptas
-        libero necessitatibus similique, reprehenderit repellat quia blanditiis
-        unde! Vero vel voluptates omnis!
+        <p>First Name</p>
+        <p>Email@email.com</p>
+      </div>
+      <div>
+        <p>First Name</p>
+        <p>Email@email.com</p>
       </div>
     </div>
   );

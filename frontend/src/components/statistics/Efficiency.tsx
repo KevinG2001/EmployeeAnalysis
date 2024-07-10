@@ -69,7 +69,7 @@ function Efficiency() {
           }}
         />
       )}
-      <div>Overall Effiency: {overallEfficiency}</div>
+      
     </>
   );
 }
