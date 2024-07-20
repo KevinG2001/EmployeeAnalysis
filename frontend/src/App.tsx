@@ -8,11 +8,6 @@ import Navbar from "./components/GlobalComps/Navbar";
 import Task from "./pages/Task";
 import Employees from "./pages/Employee";
 
-
-
-
-
-
 function App() {
   return (
     <Router>
@@ -30,13 +25,15 @@ function WithNavbarRoutes() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/dashboard" element={<Home />} />
-        <Route path="/account" element={<Settings />} />
-        <Route path="/tasks" element={<Task />} />
-        <Route path="/employees" element={<Employees />} />
-        <Route path="/profile/:employeeId" element={<EmployeeProfile />} />
-      </Routes>
+      <div id="root">
+        <Routes>
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/account" element={<Settings />} />
+          <Route path="/tasks" element={<Task />} />
+          <Route path="/employees" element={<Employees />} />
+          <Route path="/profile/:employeeId" element={<EmployeeProfile />} />
+        </Routes>
+      </div>
     </>
   );
 }

@@ -4,14 +4,17 @@ import Styles from "../../styles/home.module.scss";
 function YourTeam() {
   return (
     <div className={Styles.greyBox}>
-      <h2>Your Team</h2>
-      <div>
-        <p>First Name</p>
-        <p>Email@email.com</p>
+      <div className={Styles.title}>
+        <div>Your Team</div>
+        <div>View All</div>
       </div>
-      <div>
-        <p>First Name</p>
-        <p>Email@email.com</p>
+      <div className={Styles.employeeRow}>
+        <div>First Name</div>
+        <div>Email@email.com</div>
+      </div>
+      <div className={Styles.employeeRow}>
+        <div>First Name</div>
+        <div>Email@email.com</div>
       </div>
     </div>
   );

@@ -6,9 +6,9 @@ function Overview() {
     <div className={Styles.greyBox}>
       <h2>Overview</h2>
       <div>
-        <p>{`{Overall Stat}`}</p>
-        <p>{`{Weekly change}`}</p>
-        <p>{`{Weekly change %}`}</p>
+        <div>{`{Overall Stat}`}</div>
+        <div>{`{Weekly change}`}</div>
+        <div>{`{Weekly change %}`}</div>
       </div>
     </div>
   );
