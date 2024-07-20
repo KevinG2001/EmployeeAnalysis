@@ -1,7 +1,7 @@
 //File for database configuration
 
 const mysql = require("mysql");
-require("dotenv").config(); // Load environment variables from .env file
+require("dotenv").config();
 
 //Database information
 const db = mysql.createConnection({

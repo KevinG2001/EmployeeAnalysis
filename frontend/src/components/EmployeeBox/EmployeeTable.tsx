@@ -56,7 +56,7 @@ function EmployeeTable() {
         <table className={styles.listContainer}>
           <thead>
             <tr>
-              <th>Firstname</th>
+              <th>Firstnamedd</th>
               <th>Surname</th>
               <th>Email</th>
             </tr>
