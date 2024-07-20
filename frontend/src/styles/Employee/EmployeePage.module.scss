@@ -1,13 +1,7 @@
 .employeeContainer {
-  margin: 0 auto; /* Center horizontally */
-  background-color: #ccc; /* Grey background */
-  padding: 20px; /* Add some padding for spacing */
-  width: 80%; /* Adjust the width as needed */
-}
-
-
-  
-  
+  width: 100%;
+  display: flex;
+  margin: 5% 0%;
   .leftWrapper {
     width: 80%;
     display: flex;
@@ -18,4 +12,4 @@
     max-width: 408px;
     width: 100%;
   }
-
+}

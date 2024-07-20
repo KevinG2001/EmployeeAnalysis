@@ -13,7 +13,7 @@ function EmployeeStats() {
         <EmployeeDoughnutChart />
         <div className={style.textWrapper}>
           <div>Efficency: {stats.overallEfficiency}%</div>
-          <div>Produxxxxctivity: </div>
+          <div>Productivity: </div>
           <div>Timeleness: {stats.timeliness}%</div>
           <div>Attendance: </div>
           <div>Quality of Work: </div>
