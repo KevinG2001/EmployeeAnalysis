@@ -17,10 +17,12 @@
 
 .wideBox {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   max-width: 700px;
   width: 100%;
-  margin-bottom: 15%;
 }
+
 .box {
   display: flex;
   max-width: 700px;
@@ -30,8 +32,37 @@
   margin-top: 15%;
 }
 
+.greyBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #d1d1d1;
+  border-radius: 8px;
+  width: 50%;
+  height: 100%;
+  max-width: 310px;
+  max-height: 200px;
+}
+
 .rightPanel {
   max-width: 400px;
   height: 100%;
   width: 100%;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-height: 25px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.employeeRow {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  height: 20px;
 }

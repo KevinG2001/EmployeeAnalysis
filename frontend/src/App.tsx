@@ -24,12 +24,14 @@ function WithNavbarRoutes() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/account" element={<Settings />} />
-        <Route path="/tasks" element={<Task />} />
-        <Route path="/employees" element={<Employees />} />
-      </Routes>
+      <div id="root">
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/account" element={<Settings />} />
+          <Route path="/tasks" element={<Task />} />
+          <Route path="/employees" element={<Employees />} />
+        </Routes>
+      </div>
     </>
   );
 }
