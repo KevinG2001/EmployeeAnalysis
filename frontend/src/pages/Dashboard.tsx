@@ -5,8 +5,6 @@ import Statistics from "../components/statistics/StatisticsBox";
 import RecentTasks from "../components/DashboardPageComponents/RecentTasks";
 
 function Dashboard() {
-  // This page is the home page
-  // It is the main dashboard of the website
   return (
     <div className={Styles.container}>
       <div className={Styles.leftPanel}>
@@ -16,13 +14,11 @@ function Dashboard() {
         </div>
         <div className={Styles.box}>
           <Statistics />
-          This is a long box and to use ChartJs
         </div>
       </div>
       <div className={Styles.rightPanel}>
         <div className={Styles.longBox}>
           <RecentTasks />
-          This is for goals of the week
         </div>
       </div>
     </div>
@@ -30,3 +26,5 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+

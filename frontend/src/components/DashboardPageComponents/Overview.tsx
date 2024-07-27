@@ -1,17 +1,28 @@
+
 import React from "react";
 import Styles from "../../styles/home.module.scss";
 
-function Overview() {
+const Overview = () => {
   return (
-    <div className={Styles.greyBox}>
-      <h2>Overview</h2>
-      <div>
-        <div>{`{Overall Stat}`}</div>
-        <div>{`{Weekly change}`}</div>
-        <div>{`{Weekly change %}`}</div>
+    <div className={Styles.overviewContainer}>
+      <h2 className={Styles.title}>Overview</h2>
+      <div className={Styles.statsContainer}>
+        <div className={Styles.statItem}>
+          <h3>Overall Stat</h3>
+          <p>{`Data or Summary Here`}</p>
+        </div>
+        <div className={Styles.statItem}>
+          <h3>Weekly Change</h3>
+          <p>{`Data or Summary Here`}</p>
+        </div>
+        <div className={Styles.statItem}>
+          <h3>Weekly Change %</h3>
+          <p>{`Data or Summary Here`}</p>
+        </div>
       </div>
     </div>
   );
 }
 
 export default Overview;
+
